@@ -14,7 +14,10 @@ const StudentCount = (props: Props) => {
       <Typography variant="h5" display="inline">
         {current}
       </Typography>
-      <Typography display="inline"> /{all}</Typography>
+      <Typography display="inline" variant="caption">
+        {" "}
+        /{all}
+      </Typography>
     </Box>
   );
 };
