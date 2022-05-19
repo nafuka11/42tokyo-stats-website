@@ -143,9 +143,11 @@ const Stats: NextPage<Props> = (props: Props) => {
             </Grid>
           ))}
       </Grid>
-      <StatsCard>
-        <FutureStudentCount studentStatus={studentStatus} />
-      </StatsCard>
+      <Box mb={2}>
+        <StatsCard>
+          <FutureStudentCount studentStatus={studentStatus} />
+        </StatsCard>
+      </Box>
       <StatsCard>
         <BeginAtLevelTable levelBeginAt={levelBeginAtAll} maxLevel={maxLevel} />
       </StatsCard>
