@@ -36,7 +36,8 @@ const LevelStudentChart = (props: Props) => {
     },
     tooltip: {
       headerFormat: "Lv. {point.key}<br/>",
-      pointFormat: "{point.y}人 (<b>{point.percentage:.2f}%</b>)",
+      pointFormat:
+        '<span style="color: {point.color}">\u25CF</span> {point.y}人 (<b>{point.percentage:.2f}%</b>)',
     },
     plotOptions: {
       column: {

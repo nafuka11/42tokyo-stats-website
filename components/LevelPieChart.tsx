@@ -16,7 +16,8 @@ const LevelPieChart = (props: Props) => {
     },
     tooltip: {
       headerFormat: "Lv. {point.point.x}<br/>",
-      pointFormat: "{point.y}人 (<b>{point.percentage:.1f}%</b>)",
+      pointFormat:
+        '<span style="color: {point.color}">\u25CF</span> {point.y}人 (<b>{point.percentage:.1f}%</b>)',
     },
     chart: {
       height: "100%",

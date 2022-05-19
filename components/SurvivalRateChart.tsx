@@ -15,7 +15,11 @@ const SurvivalRateChart = (props: Props) => {
         (studentStatus[key].current /
           (studentStatus[key].current + studentStatus[key].blackholed)) *
         100;
-      return Math.round(percent * 100) / 100;
+      return {
+        y: Math.round(percent * 100) / 100,
+        current: studentStatus[key].current,
+        bh: studentStatus[key].blackholed,
+      };
     });
 
   const options: Highcharts.Options = {
@@ -39,6 +43,15 @@ const SurvivalRateChart = (props: Props) => {
     },
     legend: {
       enabled: false,
+    },
+    tooltip: {
+      useHTML: true,
+      headerFormat: '<table><tr><th colspan="2">{point.key}</th></tr>',
+      pointFormat:
+        '<tr><td>在籍</td><td style="text-align: right"><b>{point.current}</b></td>' +
+        '<tr><td>BH</td><td style="text-align: right"><b>{point.bh}</b></td>' +
+        '<tr><td>生存率</td><td style="text-align: right">{point.y}%</td>',
+      footerFormat: "</table>",
     },
     plotOptions: {
       bar: {
