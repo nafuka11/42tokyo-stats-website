@@ -8,7 +8,7 @@ type Props = {
 const StatsCard = (props: Props) => {
   const { children } = props;
 
-  return <Paper sx={{ p: 2 }}>{children}</Paper>;
+  return <Paper sx={{ p: 2, height: "100%" }}>{children}</Paper>;
 };
 
 export default StatsCard;
