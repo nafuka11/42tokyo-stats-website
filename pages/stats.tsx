@@ -149,7 +149,11 @@ const Stats: NextPage<Props> = (props: Props) => {
         </StatsCard>
       </Box>
       <StatsCard>
-        <BeginAtLevelTable levelBeginAt={levelBeginAtAll} maxLevel={maxLevel} />
+        <BeginAtLevelTable
+          current={levelBeginAtCurrent}
+          all={levelBeginAtAll}
+          maxLevel={maxLevel}
+        />
       </StatsCard>
     </Container>
   );
