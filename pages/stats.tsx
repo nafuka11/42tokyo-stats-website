@@ -1,6 +1,14 @@
 import { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
-import { Box, Container, Grid } from "@mui/material";
+import {
+  Box,
+  Container,
+  Divider,
+  Grid,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { fetchCursusUsers } from "../libs/cursus-users";
 import {
   getBeginAtList,
@@ -8,6 +16,7 @@ import {
   getLevelBeginAtData,
   getLevelStudents,
   getStudentStatusData,
+  isCurrentStudent,
 } from "../libs/process-cursus-users";
 import { CursusUser } from "../types/CursusUser";
 import LevelStudentChart from "../components/LevelStudentChart";
@@ -16,6 +25,8 @@ import SurvivalRateChart from "../components/SurvivalRateChart";
 import EvaluationPointSummary from "../components/EvaluationPointSummary";
 import FutureStudentCount from "../components/FutureStudentCount";
 import StatsCard from "../components/StatsCard";
+import BeginAtLevelTable from "../components/BeginAtLevelTable";
+import LastUpdate from "../components/LastUpdate";
 
 const LevelPieChart = dynamic(() => import("../components/LevelPieChart"), {
   ssr: false,
@@ -27,18 +38,24 @@ type Props = {
 
 const Stats: NextPage<Props> = (props: Props) => {
   const { cursusUsers } = props;
+  const theme = useTheme();
+
   const beginAtList = getBeginAtList(cursusUsers);
-  const studentStatusData = getStudentStatusData(cursusUsers, beginAtList);
+  const studentStatus = getStudentStatusData(cursusUsers, beginAtList);
   const evaluationPoint = getEvaluationPoints(cursusUsers);
-  const levelBeginAtData = getLevelBeginAtData(cursusUsers, beginAtList);
-  const levelStudents = getLevelStudents(levelBeginAtData);
+  const levelBeginAtCurrent = getLevelBeginAtData(
+    cursusUsers.filter(isCurrentStudent),
+    beginAtList
+  );
+  const levelBeginAtAll = getLevelBeginAtData(cursusUsers, beginAtList);
+  const levelStudents = getLevelStudents(levelBeginAtCurrent);
   const maxLevel = Math.max(
-    ...Object.keys(levelBeginAtData)
-      .map((key) => levelBeginAtData[key].map((lv) => lv.level))
+    ...Object.keys(levelBeginAtCurrent)
+      .map((key) => levelBeginAtCurrent[key].map((lv) => lv.level))
       .flat()
   );
-  const studentCount = Object.keys(studentStatusData).reduce(
-    (result, key) => result + studentStatusData[key].current,
+  const studentCount = Object.keys(studentStatus).reduce(
+    (result, key) => result + studentStatus[key].current,
     0
   );
 
@@ -52,34 +69,51 @@ const Stats: NextPage<Props> = (props: Props) => {
         justifyContent="center"
       >
         <Grid item xs={12} sm={2} md={2}>
-          <Box
-            height="100%"
-            sx={{ display: "grid", gridTemplateRows: "repeat(2, 1fr)", gap: 1 }}
-          >
+          <Box height={{ xs: undefined, sm: 300 }}>
             <StatsCard>
-              <StudentCount count={studentCount} />
+              <Stack
+                divider={
+                  <Divider
+                    flexItem
+                    orientation={
+                      useMediaQuery(theme.breakpoints.down("sm"))
+                        ? "vertical"
+                        : "horizontal"
+                    }
+                  />
+                }
+                spacing={1}
+                justifyContent="space-around"
+                height="100%"
+                direction={{ xs: "row", sm: "column" }}
+              >
+                <LastUpdate />
+                <StudentCount count={studentCount} />
+                <EvaluationPointSummary
+                  evaluationPoint={evaluationPoint}
+                  students={studentCount}
+                />
+              </Stack>
             </StatsCard>
+          </Box>
+        </Grid>
+        <Grid item xs={2} sm={3} md={5}>
+          <Box height={300}>
             <StatsCard>
-              <EvaluationPointSummary
-                evaluationPoint={evaluationPoint}
-                students={studentCount}
+              <LevelStudentChart
+                levelStudent={levelStudents}
+                studentCount={studentCount}
+                maxLevel={maxLevel}
               />
             </StatsCard>
           </Box>
         </Grid>
-        <Grid item xs={2} sm={3} md={4}>
-          <StatsCard>
-            <LevelStudentChart
-              levelStudent={levelStudents}
-              studentCount={studentCount}
-              maxLevel={maxLevel}
-            />
-          </StatsCard>
-        </Grid>
-        <Grid item xs={2} sm={3} md={4}>
-          <StatsCard>
-            <SurvivalRateChart studentStatus={studentStatusData} />
-          </StatsCard>
+        <Grid item xs={2} sm={3} md={5}>
+          <Box height={300}>
+            <StatsCard>
+              <SurvivalRateChart studentStatus={studentStatus} />
+            </StatsCard>
+          </Box>
         </Grid>
       </Grid>
       <Grid
@@ -89,20 +123,23 @@ const Stats: NextPage<Props> = (props: Props) => {
         mb={2}
       >
         {beginAtList
-          .filter((beginAt) => studentStatusData[beginAt].current)
+          .filter((beginAt) => studentStatus[beginAt].current)
           .map((beginAt) => (
             <Grid item xs={2} sm={2.6} md={3} key={beginAt}>
               <StatsCard>
                 <LevelPieChart
                   beginAt={beginAt}
-                  levels={levelBeginAtData[beginAt]}
+                  levels={levelBeginAtCurrent[beginAt]}
                 />
               </StatsCard>
             </Grid>
           ))}
       </Grid>
       <StatsCard>
-        <FutureStudentCount studentStatus={studentStatusData} />
+        <FutureStudentCount studentStatus={studentStatus} />
+      </StatsCard>
+      <StatsCard>
+        <BeginAtLevelTable levelBeginAt={levelBeginAtAll} maxLevel={maxLevel} />
       </StatsCard>
     </Container>
   );
