@@ -28,9 +28,6 @@ const LevelStudentChart = (props: Props) => {
       },
       min: 0,
     },
-    chart: {
-      height: 300,
-    },
     legend: {
       enabled: false,
     },
@@ -65,7 +62,13 @@ const LevelStudentChart = (props: Props) => {
   };
   const a: keyof LevelStudentData = 123;
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+      containerProps={{ style: { height: "100%" } }}
+    />
+  );
 };
 
 export default LevelStudentChart;

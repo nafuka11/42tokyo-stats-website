@@ -39,7 +39,6 @@ const SurvivalRateChart = (props: Props) => {
     },
     chart: {
       marginRight: 50,
-      height: 300,
     },
     legend: {
       enabled: false,
@@ -70,7 +69,13 @@ const SurvivalRateChart = (props: Props) => {
       },
     ],
   };
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+      containerProps={{ style: { height: "100%" } }}
+    />
+  );
 };
 
 export default SurvivalRateChart;
