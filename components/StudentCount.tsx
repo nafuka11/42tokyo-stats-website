@@ -1,16 +1,20 @@
 import { Box, Typography } from "@mui/material";
 
 type Props = {
-  count: number;
+  current: number;
+  all: number;
 };
 
 const StudentCount = (props: Props) => {
-  const { count } = props;
+  const { current, all } = props;
 
   return (
     <Box>
-      <Typography>学生数</Typography>
-      <Typography variant="h5">{count}</Typography>
+      <Typography>在籍学生数</Typography>
+      <Typography variant="h5" display="inline">
+        {current}
+      </Typography>
+      <Typography display="inline"> /{all}</Typography>
     </Box>
   );
 };

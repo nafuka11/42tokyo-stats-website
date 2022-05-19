@@ -54,8 +54,13 @@ const Stats: NextPage<Props> = (props: Props) => {
       .map((key) => levelBeginAtCurrent[key].map((lv) => lv.level))
       .flat()
   );
-  const studentCount = Object.keys(studentStatus).reduce(
+  const currentStudentCount = Object.keys(studentStatus).reduce(
     (result, key) => result + studentStatus[key].current,
+    0
+  );
+  const allStudentCount = Object.keys(studentStatus).reduce(
+    (result, key) =>
+      result + studentStatus[key].current + studentStatus[key].blackholed,
     0
   );
 
@@ -88,10 +93,13 @@ const Stats: NextPage<Props> = (props: Props) => {
                 direction={{ xs: "row", sm: "column" }}
               >
                 <LastUpdate />
-                <StudentCount count={studentCount} />
+                <StudentCount
+                  current={currentStudentCount}
+                  all={allStudentCount}
+                />
                 <EvaluationPointSummary
                   evaluationPoint={evaluationPoint}
-                  students={studentCount}
+                  students={currentStudentCount}
                 />
               </Stack>
             </StatsCard>
@@ -102,7 +110,7 @@ const Stats: NextPage<Props> = (props: Props) => {
             <StatsCard>
               <LevelStudentChart
                 levelStudent={levelStudents}
-                studentCount={studentCount}
+                studentCount={currentStudentCount}
                 maxLevel={maxLevel}
               />
             </StatsCard>
