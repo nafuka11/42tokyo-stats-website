@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 
 type Props = {
   evaluationPoint: number;
@@ -9,11 +9,16 @@ const EvaluationPointSummary = (props: Props) => {
   const { evaluationPoint, students } = props;
   const perStudent = (evaluationPoint / students).toFixed(2);
   return (
-    <Paper sx={{ p: 2 }}>
+    <Box>
       <Typography>Evaluation point</Typography>
-      <Typography variant="h4">{evaluationPoint}</Typography>
-      <Typography variant="caption">1人あたり {perStudent}</Typography>
-    </Paper>
+      <Typography variant="h5" display="inline">
+        {perStudent}
+      </Typography>
+      <Typography display="inline"> /人</Typography>
+      <Typography variant="caption" display="block">
+        合計 {evaluationPoint}
+      </Typography>
+    </Box>
   );
 };
 
