@@ -3,7 +3,8 @@ import { CursusUser } from "../types/CursusUser";
 import { StudentStatusData } from "../types/StudentStatusData";
 import { LevelStudentData } from "../types/LevelStudentData";
 
-const now = new Date().toISOString();
+export const nowDate = new Date();
+const nowStr = nowDate.toISOString();
 
 export const getStudentStatusData = (
   cursusUsers: CursusUser[],
@@ -22,9 +23,9 @@ export const getStudentStatusData = (
       "$1"
     );
 
-    if (cursusUser.begin_at > now) {
+    if (cursusUser.begin_at > nowStr) {
       studentStatusData[dateStr].future++;
-    } else if (cursusUser.blackholed_at < now) {
+    } else if (cursusUser.blackholed_at < nowStr) {
       studentStatusData[dateStr].blackholed++;
     } else {
       studentStatusData[dateStr].current++;
@@ -56,7 +57,7 @@ export const getLevelBeginAtData = (
     {},
     ...levelBeginAtList
   );
-  cursusUsers.filter(isCurrentStudent).forEach((cursusUser) => {
+  cursusUsers.forEach((cursusUser) => {
     const dateStr: keyof LevelBeginAtData = cursusUser.begin_at.replace(
       /^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
       "$1"
@@ -95,5 +96,5 @@ export const getEvaluationPoints = (cursusUsers: CursusUser[]): number => {
     .reduce((prev, current) => prev + current);
 };
 
-const isCurrentStudent = (cursusUser: CursusUser): boolean =>
-  cursusUser.begin_at < now && cursusUser.blackholed_at > now;
+export const isCurrentStudent = (cursusUser: CursusUser): boolean =>
+  cursusUser.begin_at < nowStr && cursusUser.blackholed_at > nowStr;
