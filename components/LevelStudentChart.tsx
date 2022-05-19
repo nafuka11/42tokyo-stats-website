@@ -1,30 +1,17 @@
 import HighchartsReact from "highcharts-react-official";
-import Highcharts, { SeriesOptionsType } from "highcharts";
-import { LevelBeginAtData } from "../types/LevelUserData";
-import { MouseEvent, useState } from "react";
-import { Button } from "@mui/material";
+import Highcharts from "highcharts";
+import { LEVEL_COLORS } from "../constants/colors";
+import { LevelStudentData } from "../types/LevelStudentData";
 
 type Props = {
-  levelBeginAtData: LevelBeginAtData;
+  levelStudent: LevelStudentData;
+  studentCount: number;
   maxLevel: number;
 };
 
 const LevelStudentChart = (props: Props) => {
-  const { levelBeginAtData, maxLevel } = props;
-  const [stacking, setStacking] = useState<boolean>(true);
+  const { levelStudent, studentCount, maxLevel } = props;
 
-  const series: SeriesOptionsType[] = Object.keys(levelBeginAtData).map(
-    (key) => {
-      return {
-        type: "column",
-        name: key,
-        data: [...Array(maxLevel + 1)].map(
-          (_, i) =>
-            levelBeginAtData[key].find((lv) => lv.level === i)?.count ?? 0
-        ),
-      };
-    }
-  );
   const options: Highcharts.Options = {
     title: {
       text: "Lv別学生数",
@@ -41,23 +28,43 @@ const LevelStudentChart = (props: Props) => {
       },
       min: 0,
     },
+    chart: {
+      height: 300,
+    },
+    legend: {
+      enabled: false,
+    },
+    tooltip: {
+      headerFormat: "Lv. {point.key}<br/>",
+      pointFormat: "{point.y}人 (<b>{point.percentage:.2f}%</b>)",
+    },
     plotOptions: {
       column: {
-        stacking: stacking ? "normal" : "percent",
+        dataLabels: {
+          enabled: true,
+          overflow: "allow",
+          crop: false,
+        },
+        borderWidth: 0.2,
+        borderColor: "#000000",
       },
     },
-    series,
+    series: [
+      {
+        type: "column",
+        data: Object.keys(levelStudent)
+          .map((key) => parseInt(key, 10))
+          .map((key) => ({
+            y: levelStudent[key],
+            color: LEVEL_COLORS[key],
+            percentage: (levelStudent[key] / studentCount) * 100,
+          })),
+      },
+    ],
   };
+  const a: keyof LevelStudentData = 123;
 
-  const toggleStacking = (_: MouseEvent<HTMLElement>) =>
-    setStacking((prev) => !prev);
-
-  return (
-    <>
-      <HighchartsReact highcharts={Highcharts} options={options} />
-      <Button onClick={toggleStacking}>toggle percentage</Button>
-    </>
-  );
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
 export default LevelStudentChart;
