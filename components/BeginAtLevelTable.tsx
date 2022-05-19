@@ -19,7 +19,24 @@ type Props = {
 const BeginAtLevelTable = (props: Props) => {
   const { current, all, maxLevel } = props;
   const [showAllData, setShowAllData] = useState(false);
+
   const levelBeginAt = showAllData ? all : current;
+  const calcTableData = () => {
+    const tableData = Object.keys(levelBeginAt).map((key) => {
+      const counts = [...Array(maxLevel + 1)].map(
+        (_, lv) => levelBeginAt[key].find((v) => v.level === lv)?.count ?? 0
+      );
+      const sum = counts.reduce((prev, cur) => prev + cur);
+      return [...counts, sum];
+    });
+    const lastRow = [...Array(maxLevel + 1)].map((_, lv) =>
+      tableData.reduce((sum, cur) => sum + cur[lv], 0)
+    );
+    lastRow.push(lastRow.reduce((prev, cur) => prev + cur));
+    tableData.push(lastRow);
+    return tableData;
+  };
+  const tableData = calcTableData();
 
   const handleChange = () => setShowAllData((prev) => !prev);
 
@@ -42,26 +59,24 @@ const BeginAtLevelTable = (props: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.keys(levelBeginAt).map((key) => (
+          {Object.keys(levelBeginAt).map((key, i) => (
             <TableRow key={key}>
               <TableCell>{key}</TableCell>
-              {[...Array(maxLevel + 1)].map((_, i) => {
-                const count =
-                  levelBeginAt[key].find((v) => v.level === i)?.count ?? 0;
-                return (
-                  <TableCell key={`${key}-${i}`} align="right">
-                    {count}
-                  </TableCell>
-                );
-              })}
-              <TableCell align="right">
-                {levelBeginAt[key].reduce(
-                  (result, cur) => result + cur.count,
-                  0
-                )}
-              </TableCell>
+              {[...Array(maxLevel + 2)].map((_, lv) => (
+                <TableCell key={`${key}-${lv}`} align="right">
+                  {tableData[i][lv]}
+                </TableCell>
+              ))}
             </TableRow>
           ))}
+          <TableRow>
+            <TableCell>合計</TableCell>
+            {[...Array(maxLevel + 2)].map((_, lv) => (
+              <TableCell key={`sum-${lv}`} align="right">
+                {tableData[tableData.length - 1][lv]}
+              </TableCell>
+            ))}
+          </TableRow>
         </TableBody>
       </Table>
     </>
