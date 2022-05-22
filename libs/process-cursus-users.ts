@@ -37,7 +37,7 @@ export const getStudentStatusData = (
 export const getBeginAtList = (cursusUsers: CursusUser[]): string[] => {
   const beginAtSet = cursusUsers.reduce((results, current) => {
     const dateStr = current.begin_at.replace(
-      /^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+      /^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
       "$1"
     );
     return results.add(dateStr);
@@ -58,7 +58,7 @@ export const getLevelBeginAtData = (
   );
   cursusUsers.forEach((cursusUser) => {
     const dateStr: keyof LevelBeginAtData = cursusUser.begin_at.replace(
-      /^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+      /^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
       "$1"
     );
     const level = Math.floor(cursusUser.level);
