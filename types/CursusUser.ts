@@ -9,7 +9,7 @@ export type CursusUser = {
   grade: string;
   level: number;
   skills: Skill[];
-  blackholed_at: DateString;
+  blackholed_at: DateString | null;
   id: number;
   begin_at: DateString;
   end_at: DateString | null;

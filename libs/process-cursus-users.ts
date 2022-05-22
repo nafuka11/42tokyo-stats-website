@@ -25,7 +25,7 @@ export const getStudentStatusData = (
 
     if (cursusUser.begin_at > nowStr) {
       studentStatusData[dateStr].future++;
-    } else if (cursusUser.blackholed_at < nowStr) {
+    } else if (cursusUser.blackholed_at && cursusUser.blackholed_at < nowStr) {
       studentStatusData[dateStr].blackholed++;
     } else {
       studentStatusData[dateStr].current++;
@@ -97,4 +97,5 @@ export const getEvaluationPoints = (cursusUsers: CursusUser[]): number => {
 };
 
 export const isCurrentStudent = (cursusUser: CursusUser): boolean =>
-  cursusUser.begin_at < nowStr && cursusUser.blackholed_at > nowStr;
+  cursusUser.begin_at < nowStr &&
+  (cursusUser.blackholed_at === null || cursusUser.blackholed_at > nowStr);
