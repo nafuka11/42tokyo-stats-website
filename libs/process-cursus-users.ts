@@ -49,7 +49,6 @@ export const getLevelBeginAtData = (
   cursusUsers: CursusUser[],
   beginAtList: string[]
 ): LevelBeginAtData => {
-  const now = new Date().toISOString();
   const levelBeginAtList = beginAtList.map((beginAt) => ({
     [beginAt]: [] as LevelUserData[],
   }));
