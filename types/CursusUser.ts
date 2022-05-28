@@ -6,7 +6,7 @@ type DateString =
   `${number}-${number}-${number}T${number}:${number}:${number}.${number}Z`;
 
 export type CursusUser = {
-  grade: string;
+  grade: string | null;
   level: number;
   skills: Skill[];
   blackholed_at: DateString | null;
