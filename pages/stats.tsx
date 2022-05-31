@@ -18,7 +18,6 @@ import {
   getStudentStatusData,
   isCurrentStudent,
 } from "../libs/process-cursus-users";
-import { CursusUser } from "../types/CursusUser";
 import LevelStudentChart from "../components/LevelStudentChart";
 import StudentCount from "../components/StudentCount";
 import SurvivalRateChart from "../components/SurvivalRateChart";
@@ -27,27 +26,31 @@ import FutureStudentCount from "../components/FutureStudentCount";
 import StatsCard from "../components/StatsCard";
 import BeginAtLevelTable from "../components/BeginAtLevelTable";
 import LastUpdate from "../components/LastUpdate";
+import { StudentStatusData } from "../types/StudentStatusData";
+import { LevelBeginAtData } from "../types/LevelBeginAtData";
 
 const LevelPieChart = dynamic(() => import("../components/LevelPieChart"), {
   ssr: false,
 });
 
 type Props = {
-  cursusUsers: CursusUser[];
+  beginAtList: string[];
+  studentStatus: StudentStatusData;
+  evaluationPoint: number;
+  levelBeginAtCurrent: LevelBeginAtData;
+  levelBeginAtAll: LevelBeginAtData;
 };
 
 const Stats: NextPage<Props> = (props: Props) => {
-  const { cursusUsers } = props;
+  const {
+    beginAtList,
+    studentStatus,
+    evaluationPoint,
+    levelBeginAtCurrent,
+    levelBeginAtAll,
+  } = props;
   const theme = useTheme();
 
-  const beginAtList = getBeginAtList(cursusUsers);
-  const studentStatus = getStudentStatusData(cursusUsers, beginAtList);
-  const evaluationPoint = getEvaluationPoints(cursusUsers);
-  const levelBeginAtCurrent = getLevelBeginAtData(
-    cursusUsers.filter(isCurrentStudent),
-    beginAtList
-  );
-  const levelBeginAtAll = getLevelBeginAtData(cursusUsers, beginAtList);
   const levelStudents = getLevelStudents(levelBeginAtCurrent);
   const maxLevel = Math.max(
     ...Object.keys(levelBeginAtCurrent)
@@ -161,9 +164,21 @@ const Stats: NextPage<Props> = (props: Props) => {
 
 export const getStaticProps: GetStaticProps = () => {
   const cursusUsers = fetchCursusUsers();
+  const beginAtList = getBeginAtList(cursusUsers);
+  const studentStatus = getStudentStatusData(cursusUsers, beginAtList);
+  const evaluationPoint = getEvaluationPoints(cursusUsers);
+  const levelBeginAtCurrent = getLevelBeginAtData(
+    cursusUsers.filter(isCurrentStudent),
+    beginAtList
+  );
+  const levelBeginAtAll = getLevelBeginAtData(cursusUsers, beginAtList);
   return {
     props: {
-      cursusUsers,
+      beginAtList,
+      studentStatus,
+      evaluationPoint,
+      levelBeginAtCurrent,
+      levelBeginAtAll,
     },
   };
 };
