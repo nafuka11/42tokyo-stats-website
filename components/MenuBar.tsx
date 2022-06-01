@@ -31,7 +31,7 @@ const MenuBar = () => {
           <Box sx={{ flexGrow: 1 }} />
           {session && (
             <IconButton sx={{ p: 0 }} onClick={handleClick}>
-              {session?.user?.image && <Avatar src={session.user.image} />}
+              <Avatar src={session.user?.image ?? "fallback.png"} />
             </IconButton>
           )}
         </Toolbar>
