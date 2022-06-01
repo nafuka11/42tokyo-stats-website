@@ -88,7 +88,7 @@ const Stats = (props: Props) => {
                 height="100%"
                 direction={{ xs: "row", sm: "column" }}
               >
-                <LastUpdate />
+                <LastUpdate updatedAt={updatedAt} />
                 <StudentCount
                   current={currentStudentCount}
                   all={allStudentCount}
