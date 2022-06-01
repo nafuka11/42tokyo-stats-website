@@ -1,16 +1,29 @@
 import fs from "fs";
-import { resolve } from "path";
+import path, { resolve } from "path";
 import { CursusUser } from "../types/CursusUser";
 
-const cursusUsersPath = resolve(process.cwd(), "contents", "cursus_users.json");
+const cursusUsersDir = resolve(process.cwd(), "contents");
 
-export const fetchCursusUsers = (): CursusUser[] => {
-  const fileContents = fs.readFileSync(cursusUsersPath, "utf8");
+export const fetchCursusUsers = (): {
+  cursusUsers: CursusUser[];
+  updatedAt: string;
+} => {
+  const files = fs
+    .readdirSync(cursusUsersDir)
+    .filter((file) => file.endsWith(".json"));
+  if (!files) {
+    throw Error("Failed to read file");
+  }
+  const file = files[0];
+  const fileContents = fs.readFileSync(resolve(cursusUsersDir, file), "utf8");
   const cursusUsers: CursusUser[] = JSON.parse(fileContents);
   const filteredCursusUsers = cursusUsers.filter((cursusUser) =>
     isStudent(cursusUser)
   );
-  return filteredCursusUsers;
+  return {
+    cursusUsers: filteredCursusUsers,
+    updatedAt: path.basename(file, ".json"),
+  };
 };
 
 const isStudent = (cursusUser: CursusUser) => {

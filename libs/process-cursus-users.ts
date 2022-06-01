@@ -3,7 +3,7 @@ import { CursusUser } from "../types/CursusUser";
 import { StudentStatusData } from "../types/StudentStatusData";
 import { LevelStudentData } from "../types/LevelStudentData";
 
-export const nowDate = new Date();
+const nowDate = new Date();
 const nowStr = nowDate.toISOString();
 
 export const getStudentStatusData = (
