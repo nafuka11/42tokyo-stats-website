@@ -2,6 +2,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
@@ -21,22 +22,24 @@ const FutureStudentCount = (props: Props) => {
   return (
     <>
       <Typography>今後入学する学生数</Typography>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>入学日</TableCell>
-            <TableCell>学生数</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {futureBeginAtList.map((beginAt) => (
-            <TableRow key={beginAt}>
-              <TableCell>{beginAt}</TableCell>
-              <TableCell>{studentStatus[beginAt].future}</TableCell>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>入学日</TableCell>
+              <TableCell>学生数</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {futureBeginAtList.map((beginAt) => (
+              <TableRow key={beginAt}>
+                <TableCell>{beginAt}</TableCell>
+                <TableCell>{studentStatus[beginAt].future}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };

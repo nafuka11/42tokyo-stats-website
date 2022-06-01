@@ -4,6 +4,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
@@ -48,37 +49,39 @@ const BeginAtLevelTable = (props: Props) => {
         onChange={handleChange}
         label="全学生のデータを表示する"
       />
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>入学日</TableCell>
-            {[...Array(maxLevel + 1)].map((_, i) => (
-              <TableCell key={i} align="right">{`Lv. ${i}`}</TableCell>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>入学日</TableCell>
+              {[...Array(maxLevel + 1)].map((_, i) => (
+                <TableCell key={i} align="right">{`Lv. ${i}`}</TableCell>
+              ))}
+              <TableCell align="right">合計</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {Object.keys(levelBeginAt).map((key, i) => (
+              <TableRow key={key}>
+                <TableCell>{key}</TableCell>
+                {[...Array(maxLevel + 2)].map((_, lv) => (
+                  <TableCell key={`${key}-${lv}`} align="right">
+                    {tableData[i][lv]}
+                  </TableCell>
+                ))}
+              </TableRow>
             ))}
-            <TableCell align="right">合計</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Object.keys(levelBeginAt).map((key, i) => (
-            <TableRow key={key}>
-              <TableCell>{key}</TableCell>
+            <TableRow>
+              <TableCell>合計</TableCell>
               {[...Array(maxLevel + 2)].map((_, lv) => (
-                <TableCell key={`${key}-${lv}`} align="right">
-                  {tableData[i][lv]}
+                <TableCell key={`sum-${lv}`} align="right">
+                  {tableData[tableData.length - 1][lv]}
                 </TableCell>
               ))}
             </TableRow>
-          ))}
-          <TableRow>
-            <TableCell>合計</TableCell>
-            {[...Array(maxLevel + 2)].map((_, lv) => (
-              <TableCell key={`sum-${lv}`} align="right">
-                {tableData[tableData.length - 1][lv]}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };
