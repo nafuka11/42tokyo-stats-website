@@ -26,3 +26,14 @@ NEXTAUTH_SECRET
   ```bash
   openssl rand -base64 32
   ```
+
+FIREBASE_SERVICE_ACCOUNT_BASE64
+
+- サービスアカウントキーが含まれるJSONファイルをbase64変換したもの
+  ```bash
+  cat service-account-file.json | tr -d "\n" | base64
+  ```
+
+BUCKET_NAME
+
+- Cloud Storageのバケット名
