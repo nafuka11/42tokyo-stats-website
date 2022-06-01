@@ -9,7 +9,7 @@ export default NextAuth({
     })
   ],
   session: {
-    maxAge: 14 * 24 * 60 * 60, // 14 days
-    updateAge: 12 * 60 * 60 // 12 hours
+    maxAge: 24 * 60 * 60, // 1 day
+    updateAge: 2 * 60 * 60 // 2 hours
   }
 })
