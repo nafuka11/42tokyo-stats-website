@@ -21,7 +21,6 @@ FT_CLIENT_SECRET
 NEXTAUTH_SECRET
 
 - JWTの暗号化に使われるキー
-
 - 以下のコマンドで生成できます（参考：[Options \| NextAuth\.js](https://next-auth.js.org/configuration/options#secret)）
 
   ```bash
