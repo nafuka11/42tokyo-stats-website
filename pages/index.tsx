@@ -20,6 +20,7 @@ type Props = {
   evaluationPoint: number;
   levelBeginAtCurrent: LevelBeginAtData;
   levelBeginAtAll: LevelBeginAtData;
+  updatedAt: string;
 };
 
 const Home: NextPage<Props> = (props: Props) => {
@@ -43,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const cursusUsers = fetchCursusUsers();
+  const { cursusUsers, updatedAt } = fetchCursusUsers();
   const beginAtList = getBeginAtList(cursusUsers);
   const studentStatus = getStudentStatusData(cursusUsers, beginAtList);
   const evaluationPoint = getEvaluationPoints(cursusUsers);
@@ -59,6 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       evaluationPoint,
       levelBeginAtCurrent,
       levelBeginAtAll,
+      updatedAt,
     },
   };
 };

@@ -30,6 +30,7 @@ type Props = {
   evaluationPoint: number;
   levelBeginAtCurrent: LevelBeginAtData;
   levelBeginAtAll: LevelBeginAtData;
+  updatedAt: string;
 };
 
 const Stats = (props: Props) => {
@@ -39,6 +40,7 @@ const Stats = (props: Props) => {
     evaluationPoint,
     levelBeginAtCurrent,
     levelBeginAtAll,
+    updatedAt,
   } = props;
   const theme = useTheme();
 
@@ -86,7 +88,7 @@ const Stats = (props: Props) => {
                 height="100%"
                 direction={{ xs: "row", sm: "column" }}
               >
-                <LastUpdate />
+                <LastUpdate updatedAt={updatedAt} />
                 <StudentCount
                   current={currentStudentCount}
                   all={allStudentCount}
