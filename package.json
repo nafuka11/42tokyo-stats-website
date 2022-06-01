@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:contents": "ts-node --project tsconfig.builder.json builder/download-cursus-users.ts",
     "start": "next start",
     "lint": "next lint"
   },
