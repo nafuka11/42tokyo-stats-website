@@ -1,4 +1,3 @@
-import { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import {
   Box,
@@ -9,15 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { fetchCursusUsers } from "../libs/cursus-users";
-import {
-  getBeginAtList,
-  getEvaluationPoints,
-  getLevelBeginAtData,
-  getLevelStudents,
-  getStudentStatusData,
-  isCurrentStudent,
-} from "../libs/process-cursus-users";
+import { getLevelStudents } from "../libs/process-cursus-users";
 import LevelStudentChart from "../components/LevelStudentChart";
 import StudentCount from "../components/StudentCount";
 import SurvivalRateChart from "../components/SurvivalRateChart";
@@ -41,7 +32,7 @@ type Props = {
   levelBeginAtAll: LevelBeginAtData;
 };
 
-const Stats: NextPage<Props> = (props: Props) => {
+const Stats = (props: Props) => {
   const {
     beginAtList,
     studentStatus,
@@ -68,7 +59,7 @@ const Stats: NextPage<Props> = (props: Props) => {
   );
 
   return (
-    <Container sx={{ mt: 2, mb: 2 }}>
+    <Container sx={{ pt: 2, pb: 2 }}>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -160,27 +151,6 @@ const Stats: NextPage<Props> = (props: Props) => {
       </StatsCard>
     </Container>
   );
-};
-
-export const getStaticProps: GetStaticProps = () => {
-  const cursusUsers = fetchCursusUsers();
-  const beginAtList = getBeginAtList(cursusUsers);
-  const studentStatus = getStudentStatusData(cursusUsers, beginAtList);
-  const evaluationPoint = getEvaluationPoints(cursusUsers);
-  const levelBeginAtCurrent = getLevelBeginAtData(
-    cursusUsers.filter(isCurrentStudent),
-    beginAtList
-  );
-  const levelBeginAtAll = getLevelBeginAtData(cursusUsers, beginAtList);
-  return {
-    props: {
-      beginAtList,
-      studentStatus,
-      evaluationPoint,
-      levelBeginAtCurrent,
-      levelBeginAtAll,
-    },
-  };
 };
 
 export default Stats;
