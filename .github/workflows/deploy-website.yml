@@ -7,7 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Call deploy hooks
+      - name: Call deploy hook
         env:
           VERCEL_DEPLOY_URL: ${{ secrets.VERCEL_DEPLOY_URL }}
         run: |
