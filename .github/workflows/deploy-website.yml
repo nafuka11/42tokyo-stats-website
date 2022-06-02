@@ -2,7 +2,7 @@ name: deploy website
 on:
   workflow_dispatch:
   schedule:
-    - cron: '42 15 * * *' # JST 00:42
+    - cron: '05 15 * * *' # JST 00:05
 jobs:
   deploy:
     runs-on: ubuntu-latest
