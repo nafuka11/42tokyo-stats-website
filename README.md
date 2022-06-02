@@ -6,10 +6,10 @@
 
 - [42 API](https://api.intra.42.fr/apidoc)
 - Google Cloudのサービスアカウントキー
-  - サービスアカウントには「Cloud Storage for Firebase サービス エージェント」のロールが必要です
+  - サービスアカウントには「Cloud Storage for Firebase サービス エージェント」のロールが必要です。
 - Cloud Storageのバケット
 - Vercelの [Deploy Hook](https://vercel.com/docs/concepts/git/deploy-hooks)
-  - 定時デプロイをする場合
+  - 定時デプロイをする場合、必要です。
 
 ## 設定項目
 
