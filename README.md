@@ -9,7 +9,7 @@
   - サービスアカウントには「Cloud Storage for Firebase サービス エージェント」のロールが必要です。
 - Cloud Storageのバケット
 - Vercelの [Deploy Hook](https://vercel.com/docs/concepts/git/deploy-hooks)
-  - 定時デプロイをする場合、必要です。
+  - 定期デプロイをする場合、必要です。
 
 ## 設定項目
 
