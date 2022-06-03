@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useState } from "react";
-import { LevelBeginAtData } from "../types/LevelBeginAtData";
+import { LevelBeginAtData } from "../../types/LevelBeginAtData";
 
 type Props = {
   current: LevelBeginAtData;

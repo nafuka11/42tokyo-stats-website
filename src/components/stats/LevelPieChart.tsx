@@ -1,7 +1,7 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import { LevelUserData } from "../types/LevelBeginAtData";
-import { LEVEL_COLORS } from "../constants/colors";
+import { LevelUserData } from "../../types/LevelBeginAtData";
+import { LEVEL_COLORS } from "../../constants/colors";
 
 type Props = {
   levels: LevelUserData[];

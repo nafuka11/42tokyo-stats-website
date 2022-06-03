@@ -1,6 +1,6 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import { StudentStatusData } from "../types/StudentStatusData";
+import { StudentStatusData } from "../../types/StudentStatusData";
 
 type Props = {
   studentStatus: StudentStatusData;
