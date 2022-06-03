@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
-import Login from "../components/Login";
-import Stats from "../components/Stats";
+import Login from "../components/login/Login";
+import Stats from "../components/stats/Stats";
 import { fetchCursusUsers } from "../libs/cursus-users";
 import {
   getBeginAtList,

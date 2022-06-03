@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { StudentStatusData } from "../types/StudentStatusData";
+import { StudentStatusData } from "../../types/StudentStatusData";
 
 type Props = {
   studentStatus: StudentStatusData;

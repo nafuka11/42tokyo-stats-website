@@ -8,19 +8,19 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { getLevelStudents } from "../libs/process-cursus-users";
-import LevelStudentChart from "../components/LevelStudentChart";
-import StudentCount from "../components/StudentCount";
-import SurvivalRateChart from "../components/SurvivalRateChart";
-import EvaluationPointSummary from "../components/EvaluationPointSummary";
-import FutureStudentCount from "../components/FutureStudentCount";
-import StatsCard from "../components/StatsCard";
-import BeginAtLevelTable from "../components/BeginAtLevelTable";
-import LastUpdate from "../components/LastUpdate";
-import { StudentStatusData } from "../types/StudentStatusData";
-import { LevelBeginAtData } from "../types/LevelBeginAtData";
+import { getLevelStudents } from "../../libs/process-cursus-users";
+import LevelStudentChart from "./LevelStudentChart";
+import StudentCount from "./StudentCount";
+import SurvivalRateChart from "./SurvivalRateChart";
+import EvaluationPointSummary from "./EvaluationPointSummary";
+import FutureStudentCount from "./FutureStudentCount";
+import StatsCard from "./StatsCard";
+import BeginAtLevelTable from "./BeginAtLevelTable";
+import LastUpdate from "./LastUpdate";
+import { StudentStatusData } from "../../types/StudentStatusData";
+import { LevelBeginAtData } from "../../types/LevelBeginAtData";
 
-const LevelPieChart = dynamic(() => import("../components/LevelPieChart"), {
+const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
   ssr: false,
 });
 
