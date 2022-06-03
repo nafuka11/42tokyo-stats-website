@@ -28,7 +28,7 @@
    | FT_CLIENT_ID                    | 42 APIのuid                                                  |
    | FT_CLIENT_SECRET                | 42 APIのsecret                                               |
    | NEXTAUTH_SECRET                 | JWTの暗号化に使われるキー<br />`openssl rand -base64 32` で生成できます（参考：[Options \|NextAuth\.js](https://next-auth.js.org/configuration/options#secret)） |
-   | FIREBASE_SERVICE_ACCOUNT_BASE64 | サービスアカウントキーが含まれるJSONファイルをbase64変換したもの<br />`cat service-account-file.json | tr -d "\n" | base64` で生成できます |
+   | FIREBASE_SERVICE_ACCOUNT_BASE64 | サービスアカウントキーが含まれるJSONファイルをbase64変換したもの<br />`cat service-account-file.json \| jq -c . \| base64` で生成できます |
    | BUCKET_NAME                     | Cloud Storageのバケット名                                    |
 
 ### GitHub ActionsのSecrets
