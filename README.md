@@ -44,3 +44,40 @@
 | Secret名          | 説明                                                         |
 | ----------------- | ------------------------------------------------------------ |
 | VERCEL_DEPLOY_URL | Vercelの [Deploy Hook](https://vercel.com/docs/concepts/git/deploy-hooks) |
+
+## ディレクトリ構成
+
+```
+.
+├── README.md
+├── README.nextjs.md
+├── contents
+├── next-env.d.ts
+├── next.config.js
+├── package.json
+├── public
+├── src
+│   ├── builder
+│   ├── components
+│   ├── constants
+│   ├── libs
+│   ├── pages
+│   ├── styles
+│   └── types
+├── tsconfig.builder.json
+├── tsconfig.json
+└── yarn.lock
+```
+
+| ディレクトリ      | 内容物                                                       |
+| ----------------- | ------------------------------------------------------------ |
+| .github/workflows | GitHub Actions用のworkflowファイル                           |
+| contents          | `yarn build:contents` で生成したファイル                     |
+| public            | 静的ファイル                                                 |
+| src/builder       | `yarn build:contents` でGoogle Cloudからファイルを取得するためのコード |
+| src/components    | コンポーネント。ページ共通のコンポーネントは `/common` に配置し、それ以外は機能ごとにディレクトリ名をつけます |
+| src/constants     | 定数が定義されたファイル                                     |
+| src/libs          | cursusUsersを読み込み、処理するためのコード                  |
+| src/pages         | ルーティング用のファイル。 `/api` 下はAPIとして公開されます  |
+| src/styles        | CSSファイル                                                  |
+| src/types         | 型定義ファイル                                               |
