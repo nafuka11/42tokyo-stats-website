@@ -4,6 +4,7 @@ import sub from "date-fns/sub";
 import { resolve } from "path";
 import dotenv from "dotenv";
 import { format, utcToZonedTime } from "date-fns-tz";
+import { getEnv } from "../utils/getEnv";
 
 const TIMEZONE = "Asia/Tokyo";
 const TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -15,13 +16,12 @@ dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 initializeApp({
   credential: cert(
     JSON.parse(
-      Buffer.from(
-        process.env.FIREBASE_SERVICE_ACCOUNT_BASE64 ?? "",
-        "base64"
-      ).toString("utf-8")
+      Buffer.from(getEnv("FIREBASE_SERVICE_ACCOUNT_BASE64"), "base64").toString(
+        "utf-8"
+      )
     )
   ),
-  storageBucket: process.env.BUCKET_NAME,
+  storageBucket: getEnv("BUCKET_NAME"),
 });
 
 const downloadCursusUsers = async () => {
