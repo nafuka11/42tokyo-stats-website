@@ -1,13 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
-import { fetchCursusUsers } from "../../libs/cursus-users";
-import {
-  getBeginAtList,
-  getEvaluationPoints,
-  getLevelBeginAtData,
-  getStudentStatusData,
-  isCurrentStudent,
-} from "../../libs/process-cursus-users";
+import { fetchContents } from "../../libs/contents";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
@@ -15,25 +8,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(401).send({ error: "Unauthorized" });
     return;
   }
-
-  const { cursusUsers, updatedAt } = fetchCursusUsers();
-  const beginAtList = getBeginAtList(cursusUsers);
-  const studentStatus = getStudentStatusData(cursusUsers, beginAtList);
-  const evaluationPoint = getEvaluationPoints(cursusUsers);
-  const levelBeginAtCurrent = getLevelBeginAtData(
-    cursusUsers.filter(isCurrentStudent),
-    beginAtList
-  );
-  const levelBeginAtAll = getLevelBeginAtData(cursusUsers, beginAtList);
-  const data = {
-    beginAtList,
-    studentStatus,
-    evaluationPoint,
-    levelBeginAtCurrent,
-    levelBeginAtAll,
-    updatedAt,
-  };
-  res.status(200).json(data);
+  const contents = fetchContents();
+  res.status(200).json(contents);
 };
 
 export default handler;
