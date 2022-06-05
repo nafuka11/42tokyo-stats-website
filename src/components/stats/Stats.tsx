@@ -49,7 +49,7 @@ const Stats = () => {
   }, []);
 
   if (!contents) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   const levelStudents = getLevelStudents(contents.levelBeginAtCurrent);
