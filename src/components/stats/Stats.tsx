@@ -136,7 +136,7 @@ const Stats = () => {
         {contents.beginAtList
           .filter((beginAt) => contents.studentStatus[beginAt].current)
           .map((beginAt) => (
-            <Grid item xs={2} sm={2.6} md={3} key={beginAt}>
+            <Grid item xs={2} sm={2.6} md={3} key={beginAt} minHeight={200}>
               <StatsCard>
                 <LevelPieChart
                   beginAt={beginAt}
