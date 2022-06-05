@@ -4,6 +4,16 @@ import sub from "date-fns/sub";
 import { resolve } from "path";
 import dotenv from "dotenv";
 import { format, utcToZonedTime } from "date-fns-tz";
+import { getEnv } from "../utils/getEnv";
+import { writeFileSync } from "fs";
+import { CursusUser } from "../types/CursusUser";
+import {
+  getBeginAtList,
+  getEvaluationPoints,
+  getLevelBeginAtData,
+  getStudentStatusData,
+  isCurrentStudent,
+} from "../libs/process-cursus-users";
 
 const TIMEZONE = "Asia/Tokyo";
 const TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -15,13 +25,12 @@ dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 initializeApp({
   credential: cert(
     JSON.parse(
-      Buffer.from(
-        process.env.FIREBASE_SERVICE_ACCOUNT_BASE64 ?? "",
-        "base64"
-      ).toString("utf-8")
+      Buffer.from(getEnv("FIREBASE_SERVICE_ACCOUNT_BASE64"), "base64").toString(
+        "utf-8"
+      )
     )
   ),
-  storageBucket: process.env.BUCKET_NAME,
+  storageBucket: getEnv("BUCKET_NAME"),
 });
 
 const downloadCursusUsers = async () => {
@@ -37,10 +46,12 @@ const downloadCursusUsers = async () => {
 
       const [metadata] = await file.getMetadata();
       const timeCreated = new Date(metadata.timeCreated);
-      const timeStamp = getTimeStamp(timeCreated);
-      const cursusUsersPath = resolve(CURSUS_USERS_DIR, `${timeStamp}.json`);
+      const [buffer] = await file.download();
+      const cursusUsers: CursusUser[] = JSON.parse(buffer.toString());
 
-      await file.download({ destination: cursusUsersPath });
+      const contents = aggregateContents(cursusUsers, timeCreated);
+      await saveContents(contents);
+
       break;
     } catch (e: any) {
       // do nothing
@@ -55,6 +66,42 @@ const getTimeStamp = (date: Date) => {
     timeZone: TIMEZONE,
   });
   return timeStr;
+};
+
+const aggregateContents = (rawCursusUsers: CursusUser[], timeCreated: Date) => {
+  const cursusUsers = rawCursusUsers.filter(isStudent);
+
+  const beginAtList = getBeginAtList(cursusUsers);
+  const studentStatus = getStudentStatusData(cursusUsers, beginAtList);
+  const evaluationPoint = getEvaluationPoints(cursusUsers);
+  const levelBeginAtCurrent = getLevelBeginAtData(
+    cursusUsers.filter(isCurrentStudent),
+    beginAtList
+  );
+  const levelBeginAtAll = getLevelBeginAtData(cursusUsers, beginAtList);
+  const updatedAt = getTimeStamp(timeCreated);
+  const data = {
+    beginAtList,
+    studentStatus,
+    evaluationPoint,
+    levelBeginAtCurrent,
+    levelBeginAtAll,
+    updatedAt,
+  };
+  return data;
+};
+
+const isStudent = (cursusUser: CursusUser) => {
+  return (
+    !cursusUser.user["staff?"] &&
+    cursusUser.user.pool_year &&
+    cursusUser.user.pool_year >= 2020
+  );
+};
+
+const saveContents = async (contents: any) => {
+  const file = resolve(CURSUS_USERS_DIR, "contents.json");
+  await writeFileSync(file, JSON.stringify(contents));
 };
 
 (async () => await downloadCursusUsers())();
