@@ -10,7 +10,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <NextHeadSeo
         title="42Tokyo Stats"
         description="42Tokyoの統計情報を表示するWebサイト"
-        canonical={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`}
         og={{ type: "website" }}
       />
       <MenuBar />
