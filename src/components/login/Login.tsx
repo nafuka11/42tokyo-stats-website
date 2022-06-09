@@ -1,13 +1,16 @@
-import { Button, Container, styled, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { signIn } from "next-auth/react";
-
-const LoginButton = styled(Button)({
-  color: "#fff",
-  backgroundImage: "linear-gradient(270deg,#2dd57a,#00babc)",
-  textTransform: "none",
-});
+import { useState } from "react";
+import LoginButton from "./LoginButton";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleLoginButtonClick = () => {
+    setLoading(true);
+    signIn("42-school");
+  };
+
   return (
     <Container
       sx={{
@@ -16,13 +19,7 @@ const Login = () => {
         justifyContent: "center",
       }}
     >
-      <LoginButton
-        onClick={() => signIn("42-school")}
-        size="large"
-        sx={{ width: 300 }}
-      >
-        <Typography variant="h5">Login with 42</Typography>
-      </LoginButton>
+      <LoginButton loading={loading} handleClick={handleLoginButtonClick} />
     </Container>
   );
 };
