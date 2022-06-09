@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import {
   Box,
+  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -49,7 +50,11 @@ const Stats = () => {
   }, []);
 
   if (!contents) {
-    return <div></div>;
+    return (
+      <Container sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress color="primary" />
+      </Container>
+    );
   }
 
   const levelStudents = getLevelStudents(contents.levelBeginAtCurrent);
