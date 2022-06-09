@@ -24,7 +24,7 @@ const LoginButton = (props: Props) => {
       disabled={loading}
     >
       {loading ? (
-        <CircularProgress size={26} color="inherit" />
+        <CircularProgress size={32} color="inherit" />
       ) : (
         <Typography variant="h5" display="inline">
           Login with 42
