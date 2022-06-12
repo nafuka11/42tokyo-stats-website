@@ -18,22 +18,12 @@ import FutureStudentCount from "./FutureStudentCount";
 import StatsCard from "./StatsCard";
 import BeginAtLevelTable from "./BeginAtLevelTable";
 import LastUpdate from "./LastUpdate";
-import { StudentStatusData } from "../../types/StudentStatusData";
-import { LevelBeginAtData } from "../../types/LevelBeginAtData";
 import { useEffect, useState } from "react";
+import { Contents } from "../../types/Contents";
 
 const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
   ssr: false,
 });
-
-type Contents = {
-  beginAtList: string[];
-  studentStatus: StudentStatusData;
-  evaluationPoint: number;
-  levelBeginAtCurrent: LevelBeginAtData;
-  levelBeginAtAll: LevelBeginAtData;
-  updatedAt: string;
-};
 
 const Stats = () => {
   const theme = useTheme();
