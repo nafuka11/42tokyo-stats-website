@@ -1,7 +1,7 @@
 import sub from "date-fns/sub";
 import { format } from "date-fns-tz";
 import { downloadCursusUsersJson } from "../repositories/cloud-storage";
-import { saveContents } from "../repositories/local-file";
+import { writeContents } from "../repositories/local-file";
 import { aggregateContents } from "../services/cursus-users";
 import { TIMEZONE } from "../constants/time";
 
@@ -19,7 +19,7 @@ const downloadCursusUsers = async () => {
       );
 
       const contents = aggregateContents(cursusUsers, timeCreated);
-      await saveContents(contents);
+      await writeContents(contents);
 
       break;
     } catch (e: any) {
