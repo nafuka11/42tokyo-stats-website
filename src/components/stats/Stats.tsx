@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { getLevelStudents } from "../../libs/process-cursus-users";
+import { getLevelStudents } from "../../services/process-cursus-users";
 import LevelStudentChart from "./LevelStudentChart";
 import StudentCount from "./StudentCount";
 import SurvivalRateChart from "./SurvivalRateChart";
