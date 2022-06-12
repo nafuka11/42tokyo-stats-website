@@ -14,6 +14,7 @@ const downloadCursusUsers = async () => {
       timeZone: TIMEZONE,
     })}.json`;
     try {
+      console.log(`try to download: ${filename}`);
       const { cursusUsers, timeCreated } = await downloadCursusUsersJson(
         filename
       );
