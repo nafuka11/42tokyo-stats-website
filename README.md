@@ -60,10 +60,12 @@
 │   ├── builder
 │   ├── components
 │   ├── constants
-│   ├── libs
 │   ├── pages
+│   ├── repositories
+│   ├── services
 │   ├── styles
-│   └── types
+│   ├── types
+│   └── utils
 ├── tsconfig.builder.json
 ├── tsconfig.json
 └── yarn.lock
@@ -74,10 +76,11 @@
 | .github/workflows | GitHub Actions用のworkflowファイル                           |
 | contents          | `yarn build:contents` で生成したファイル                     |
 | public            | 静的ファイル                                                 |
-| src/builder       | `yarn build:contents` でGoogle Cloudからファイルを取得するためのコード |
+| src/builder       | `yarn build:contents` のコード。Google Cloud Storageから情報を取得・集計し、`contents/` に保存します |
 | src/components    | コンポーネント。ページ共通のコンポーネントは `/common` に配置し、それ以外は機能ごとにディレクトリ名をつけます |
 | src/constants     | 定数が定義されたファイル                                     |
-| src/libs          | cursusUsersを読み込み、処理するためのコード                  |
 | src/pages         | ルーティング用のファイル。 `/api` 下はAPIとして公開されます  |
+| src/repositories  | Google Cloud Storage、ローカルのファイルを操作する関数のファイル |
+| src/services      | repositoriesで取得したデータを集計する関数のファイル         |
 | src/styles        | CSSファイル                                                  |
 | src/types         | 型定義ファイル                                               |
