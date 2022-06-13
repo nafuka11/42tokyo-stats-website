@@ -53,21 +53,6 @@ const Stats = () => {
     ];
   const allStudentCount =
     contents.allStudents[contents.beginAtList.length][contents.maxLevel + 1];
-  const weeklyStudents = contents.weeklyData.map((v) => {
-    const count =
-      v.currentStudents[v.currentStudents.length - 1][
-        v.currentStudents[0].length - 1
-      ];
-    const updatedAt = new Date(v.updatedAt);
-    return { count, updatedAt };
-  });
-  weeklyStudents.push({
-    count:
-      contents.currentStudents[contents.currentStudents.length - 1][
-        contents.currentStudents[0].length - 1
-      ],
-    updatedAt: new Date(contents.updatedAt),
-  });
 
   return (
     <Container sx={{ pt: 2, pb: 2 }}>
