@@ -52,7 +52,10 @@ const Stats = () => {
       contents.maxLevel + 1
     ];
   const allStudentCount =
-    contents.allStudents[contents.beginAtList.length][contents.maxLevel + 1];
+    contents.allStudents[contents.beginAtList.length][contents.maxLevel + 1] -
+    contents.allStudents
+      .filter((_, i) => contents.futureStudentIndexes.includes(i))
+      .reduce((prev, v) => prev + v[v.length - 1], 0);
 
   return (
     <Container sx={{ pt: 2, pb: 2 }}>
