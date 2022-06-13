@@ -15,7 +15,7 @@ const LastUpdate = (props: Props) => {
     <Box>
       <Typography>最終更新</Typography>
       <Typography variant="caption">
-        {format(updatedDate, "yyyy/MM/dd HH:mm:ss", {
+        {format(updatedDate, "yyyy-MM-dd HH:mm:ss", {
           timeZone: TIMEZONE_FRONT,
         })}
       </Typography>
