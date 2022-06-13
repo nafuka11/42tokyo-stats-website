@@ -1,35 +1,35 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import { StudentStatusData } from "../../types/StudentStatusData";
 
 type Props = {
-  studentStatus: StudentStatusData;
+  beginAtList: string[];
+  allStudents: number[];
+  currentStudents: number[];
+  futureStudentIndexes: number[];
 };
 
 const SurvivalRateChart = (props: Props) => {
-  const { studentStatus } = props;
-  const survivalRates = Object.keys(studentStatus)
-    .filter((key) => studentStatus[key].current)
-    .map((key) => {
-      const percent =
-        (studentStatus[key].current /
-          (studentStatus[key].current + studentStatus[key].blackholed)) *
-        100;
-      return {
-        y: Math.round(percent * 100) / 100,
-        current: studentStatus[key].current,
-        bh: studentStatus[key].blackholed,
-      };
-    });
+  const { beginAtList, allStudents, currentStudents, futureStudentIndexes } =
+    props;
+  const studentsData = currentStudents
+    .map((value, index) => ({ current: value, all: allStudents[index], index }))
+    .filter((students) => !futureStudentIndexes.includes(students.index));
+
+  const survivalRates = studentsData.map((students) => {
+    const percent = (students.current / students.all) * 100;
+    return {
+      y: Math.round(percent * 100) / 100,
+      current: students.current,
+      bh: students.all - students.current,
+    };
+  });
 
   const options: Highcharts.Options = {
     title: {
       text: "生存率",
     },
     xAxis: {
-      categories: Object.keys(studentStatus).filter(
-        (key) => studentStatus[key].current
-      ),
+      categories: studentsData.map((v) => beginAtList[v.index]),
     },
     yAxis: {
       title: {
