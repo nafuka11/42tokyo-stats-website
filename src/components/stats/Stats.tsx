@@ -9,31 +9,21 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { getLevelStudents } from "../../services/process-cursus-users";
+import { useEffect, useState } from "react";
 import LevelStudentChart from "./LevelStudentChart";
 import StudentCount from "./StudentCount";
 import SurvivalRateChart from "./SurvivalRateChart";
 import EvaluationPointSummary from "./EvaluationPointSummary";
-import FutureStudentCount from "./FutureStudentCount";
 import StatsCard from "./StatsCard";
-import BeginAtLevelTable from "./BeginAtLevelTable";
 import LastUpdate from "./LastUpdate";
-import { StudentStatusData } from "../../types/StudentStatusData";
-import { LevelBeginAtData } from "../../types/LevelBeginAtData";
-import { useEffect, useState } from "react";
+import FutureStudentCount from "./FutureStudentCount";
+import { Contents } from "../../types/Contents";
+import { getBeginAtTotal } from "../../services/pick-contents";
+import BeginAtLevelTable from "./BeginAtLevelTable";
 
 const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
   ssr: false,
 });
-
-type Contents = {
-  beginAtList: string[];
-  studentStatus: StudentStatusData;
-  evaluationPoint: number;
-  levelBeginAtCurrent: LevelBeginAtData;
-  levelBeginAtAll: LevelBeginAtData;
-  updatedAt: string;
-};
 
 const Stats = () => {
   const theme = useTheme();
@@ -57,23 +47,15 @@ const Stats = () => {
     );
   }
 
-  const levelStudents = getLevelStudents(contents.levelBeginAtCurrent);
-  const maxLevel = Math.max(
-    ...Object.keys(contents.levelBeginAtCurrent)
-      .map((key) => contents.levelBeginAtCurrent[key].map((lv) => lv.level))
-      .flat()
-  );
-  const currentStudentCount = Object.keys(contents.studentStatus).reduce(
-    (result, key) => result + contents.studentStatus[key].current,
-    0
-  );
-  const allStudentCount = Object.keys(contents.studentStatus).reduce(
-    (result, key) =>
-      result +
-      contents.studentStatus[key].current +
-      contents.studentStatus[key].blackholed,
-    0
-  );
+  const currentStudentCount =
+    contents.currentStudents[contents.beginAtList.length][
+      contents.maxLevel + 1
+    ];
+  const allStudentCount =
+    contents.allStudents[contents.beginAtList.length][contents.maxLevel + 1] -
+    contents.allStudents
+      .filter((_, i) => contents.futureStudentIndexes.includes(i))
+      .reduce((prev, v) => prev + v[v.length - 1], 0);
 
   return (
     <Container sx={{ pt: 2, pb: 2 }}>
@@ -105,7 +87,7 @@ const Stats = () => {
                   all={allStudentCount}
                 />
                 <EvaluationPointSummary
-                  evaluationPoint={contents.evaluationPoint}
+                  evaluationPoint={contents.evaluationPointSum}
                   students={currentStudentCount}
                 />
               </Stack>
@@ -116,9 +98,9 @@ const Stats = () => {
           <Box height={300}>
             <StatsCard>
               <LevelStudentChart
-                levelStudent={levelStudents}
+                currentStudents={contents.currentStudents}
                 studentCount={currentStudentCount}
-                maxLevel={maxLevel}
+                maxLevel={contents.maxLevel}
               />
             </StatsCard>
           </Box>
@@ -126,7 +108,12 @@ const Stats = () => {
         <Grid item xs={2} sm={3} md={5}>
           <Box height={300}>
             <StatsCard>
-              <SurvivalRateChart studentStatus={contents.studentStatus} />
+              <SurvivalRateChart
+                beginAtList={contents.beginAtList}
+                allStudents={getBeginAtTotal(contents.allStudents)}
+                currentStudents={getBeginAtTotal(contents.currentStudents)}
+                futureStudentIndexes={contents.futureStudentIndexes}
+              />
             </StatsCard>
           </Box>
         </Grid>
@@ -139,13 +126,13 @@ const Stats = () => {
         mb={2}
       >
         {contents.beginAtList
-          .filter((beginAt) => contents.studentStatus[beginAt].current)
-          .map((beginAt) => (
+          .filter((beginAt) => beginAt < contents.updatedAt)
+          .map((beginAt, i) => (
             <Grid item xs={2} sm={2.6} md={3} key={beginAt} minHeight={200}>
               <StatsCard>
                 <LevelPieChart
                   beginAt={beginAt}
-                  levels={contents.levelBeginAtCurrent[beginAt]}
+                  students={contents.currentStudents[i]}
                 />
               </StatsCard>
             </Grid>
@@ -153,14 +140,19 @@ const Stats = () => {
       </Grid>
       <Box mb={2}>
         <StatsCard>
-          <FutureStudentCount studentStatus={contents.studentStatus} />
+          <FutureStudentCount
+            beginAtList={contents.beginAtList}
+            allStudents={contents.allStudents}
+            futureStudentIndexes={contents.futureStudentIndexes}
+          />
         </StatsCard>
       </Box>
       <StatsCard>
         <BeginAtLevelTable
-          current={contents.levelBeginAtCurrent}
-          all={contents.levelBeginAtAll}
-          maxLevel={maxLevel}
+          beginAtList={contents.beginAtList}
+          maxLevel={contents.maxLevel}
+          allStudents={contents.allStudents}
+          currentStudents={contents.currentStudents}
         />
       </StatsCard>
     </Container>

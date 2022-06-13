@@ -1,23 +1,23 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import { LEVEL_COLORS } from "../../constants/colors";
-import { LevelStudentData } from "../../types/LevelStudentData";
+import { getLevelTotal } from "../../services/pick-contents";
 
 type Props = {
-  levelStudent: LevelStudentData;
+  currentStudents: number[][];
   studentCount: number;
   maxLevel: number;
 };
 
 const LevelStudentChart = (props: Props) => {
-  const { levelStudent, studentCount, maxLevel } = props;
+  const { currentStudents, studentCount, maxLevel } = props;
 
   const options: Highcharts.Options = {
     title: {
       text: "Lv別学生数",
     },
     xAxis: {
-      categories: [...Array(maxLevel + 1)].map((_, i) => i.toString()),
+      categories: Array.from({ length: maxLevel + 1 }, (_, i) => i.toString()),
       title: {
         text: "Lv",
       },
@@ -50,17 +50,14 @@ const LevelStudentChart = (props: Props) => {
     series: [
       {
         type: "column",
-        data: Object.keys(levelStudent)
-          .map((key) => parseInt(key, 10))
-          .map((key) => ({
-            y: levelStudent[key],
-            color: LEVEL_COLORS[key],
-            percentage: (levelStudent[key] / studentCount) * 100,
-          })),
+        data: getLevelTotal(currentStudents).map((value, i) => ({
+          y: value,
+          color: LEVEL_COLORS[i],
+          percentage: (value / studentCount) * 100,
+        })),
       },
     ],
   };
-  const a: keyof LevelStudentData = 123;
 
   return (
     <HighchartsReact

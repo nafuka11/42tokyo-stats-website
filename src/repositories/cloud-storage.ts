@@ -1,7 +1,9 @@
+import { format } from "date-fns-tz";
 import dotenv from "dotenv";
 import { initializeApp, cert } from "firebase-admin/app";
 import { getStorage } from "firebase-admin/storage";
 import { resolve } from "path";
+import { TIMEZONE_GCS } from "../constants/time";
 import { CursusUser } from "../types/CursusUser";
 import { getEnv } from "../utils/getEnv";
 
@@ -18,10 +20,12 @@ initializeApp({
   storageBucket: getEnv("BUCKET_NAME"),
 });
 
-export const downloadCursusUsersJson = async (fileName: string) => {
+export const downloadCursusUsersJson = async (date: Date) => {
   const bucket = getStorage().bucket();
+  const fileName = generateFileName(date);
   const file = bucket.file(fileName);
 
+  console.log(`try to download: ${fileName}`);
   const [metadata] = await file.getMetadata();
   const timeCreated = new Date(metadata.timeCreated);
   const [buffer] = await file.download();
@@ -29,3 +33,8 @@ export const downloadCursusUsersJson = async (fileName: string) => {
 
   return { cursusUsers, timeCreated };
 };
+
+const generateFileName = (date: Date) =>
+  `v1/cursus_users/${format(date, "yyyy-MM-dd", {
+    timeZone: TIMEZONE_GCS,
+  })}.json`;

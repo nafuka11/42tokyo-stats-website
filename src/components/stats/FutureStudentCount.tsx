@@ -7,17 +7,20 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { StudentStatusData } from "../../types/StudentStatusData";
+import { getTotalFromRow } from "../../services/pick-contents";
 
 type Props = {
-  studentStatus: StudentStatusData;
+  beginAtList: string[];
+  allStudents: number[][];
+  futureStudentIndexes: number[];
 };
 
 const FutureStudentCount = (props: Props) => {
-  const { studentStatus } = props;
-  const futureBeginAtList = Object.keys(studentStatus).filter(
-    (key) => studentStatus[key].future
-  );
+  const { beginAtList, allStudents, futureStudentIndexes } = props;
+  const futureBeginAtList = futureStudentIndexes.map((index) => ({
+    beginAt: beginAtList[index],
+    count: getTotalFromRow(allStudents[index]),
+  }));
 
   return (
     <>
@@ -31,10 +34,10 @@ const FutureStudentCount = (props: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {futureBeginAtList.map((beginAt) => (
-              <TableRow key={beginAt}>
-                <TableCell>{beginAt}</TableCell>
-                <TableCell>{studentStatus[beginAt].future}</TableCell>
+            {futureBeginAtList.map((v) => (
+              <TableRow key={v.beginAt}>
+                <TableCell>{v.beginAt}</TableCell>
+                <TableCell>{v.count}</TableCell>
               </TableRow>
             ))}
           </TableBody>

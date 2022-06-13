@@ -1,15 +1,19 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import { LevelUserData } from "../../types/LevelBeginAtData";
 import { LEVEL_COLORS } from "../../constants/colors";
+import { excludeTotalFromRow } from "../../services/pick-contents";
 
 type Props = {
-  levels: LevelUserData[];
+  students: number[];
   beginAt: string;
 };
 
 const LevelPieChart = (props: Props) => {
-  const { levels, beginAt } = props;
+  const { students, beginAt } = props;
+
+  const data = excludeTotalFromRow(students)
+    .map((count, level) => ({ count, level }))
+    .filter((v) => v.count > 0);
   const options: Highcharts.Options = {
     title: {
       text: beginAt,
@@ -38,10 +42,10 @@ const LevelPieChart = (props: Props) => {
       {
         type: "pie",
         name: "Students",
-        data: levels.map((levelUser) => ({
-          x: levelUser.level,
-          y: levelUser.count,
-          color: LEVEL_COLORS[levelUser.level],
+        data: data.map((v) => ({
+          x: v.level,
+          y: v.count,
+          color: LEVEL_COLORS[v.level],
         })),
       },
     ],
