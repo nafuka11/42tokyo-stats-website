@@ -20,7 +20,6 @@ import FutureStudentCount from "./FutureStudentCount";
 import { Contents } from "../../types/Contents";
 import { getBeginAtTotal } from "../../services/pick-contents";
 import BeginAtLevelTable from "./BeginAtLevelTable";
-import StudentLineChart from "./StudentLineChart";
 
 const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
   ssr: false,
