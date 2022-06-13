@@ -1,11 +1,9 @@
-import { LevelBeginAtData } from "./LevelBeginAtData";
-import { StudentStatusData } from "./StudentStatusData";
-
 export type Contents = {
-  beginAtList: string[];
-  studentStatus: StudentStatusData;
-  evaluationPoint: number;
-  levelBeginAtCurrent: LevelBeginAtData;
-  levelBeginAtAll: LevelBeginAtData;
   updatedAt: string;
+  beginAtList: string[];
+  maxLevel: number;
+  evaluationPointSum: number;
+  allStudents: number[][];
+  currentStudents: number[][];
+  futureStudentIndexes: number[];
 };
