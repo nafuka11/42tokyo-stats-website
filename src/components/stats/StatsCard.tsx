@@ -3,12 +3,17 @@ import { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
+  padding?: number;
 };
 
 const StatsCard = (props: Props) => {
-  const { children } = props;
+  const { children, padding } = props;
 
-  return <Paper sx={{ p: 2, height: "100%" }}>{children}</Paper>;
+  return (
+    <Paper sx={{ p: padding ?? 2, height: "100%", width: "100%" }}>
+      {children}
+    </Paper>
+  );
 };
 
 export default StatsCard;

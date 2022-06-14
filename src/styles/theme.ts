@@ -1,6 +1,6 @@
-import { createTheme } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 
-export const theme = createTheme({
+const userTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
@@ -14,3 +14,5 @@ export const theme = createTheme({
     },
   },
 });
+
+export const theme = responsiveFontSizes(userTheme);

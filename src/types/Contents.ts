@@ -6,4 +6,8 @@ export type Contents = {
   allStudents: number[][];
   currentStudents: number[][];
   futureStudentIndexes: number[];
+  weeklyData: {
+    currentStudents: number[][];
+    updatedAt: string;
+  }[];
 };

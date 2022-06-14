@@ -24,7 +24,10 @@ const LevelStudentChart = (props: Props) => {
     },
     yAxis: {
       title: {
-        text: "学生数",
+        text: "",
+      },
+      labels: {
+        format: "{value}人",
       },
       min: 0,
     },
@@ -63,7 +66,7 @@ const LevelStudentChart = (props: Props) => {
     <HighchartsReact
       highcharts={Highcharts}
       options={options}
-      containerProps={{ style: { height: "100%" } }}
+      containerProps={{ style: { height: "100%", witdh: "100%" } }}
     />
   );
 };

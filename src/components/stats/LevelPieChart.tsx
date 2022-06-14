@@ -51,7 +51,13 @@ const LevelPieChart = (props: Props) => {
     ],
   };
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+      containerProps={{ style: { height: "100%", width: "100%" } }}
+    />
+  );
 };
 
 export default LevelPieChart;

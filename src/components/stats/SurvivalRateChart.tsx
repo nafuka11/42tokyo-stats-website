@@ -33,7 +33,10 @@ const SurvivalRateChart = (props: Props) => {
     },
     yAxis: {
       title: {
-        text: "生存率(%)",
+        text: "",
+      },
+      labels: {
+        format: "{value}%",
       },
       max: 100,
     },
