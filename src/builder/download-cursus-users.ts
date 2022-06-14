@@ -3,7 +3,8 @@ import { downloadCursusUsersJson } from "../repositories/cloud-storage";
 import { writeContents } from "../repositories/local-file";
 import { aggregateContents } from "../services/cursus-users";
 
-const MAX_DOWNLOAD_RETRY_COUNT = 10;
+const MAX_DOWNLOAD_RETRY_COUNT_CURRENT = 5;
+const MAX_DOWNLOAD_RETRY_COUNT_WEEKLY = 7;
 
 const downloadCursusUsers = async () => {
   const { cursusUsers, timeCreated } = await downloadLatestData();
@@ -14,7 +15,7 @@ const downloadCursusUsers = async () => {
 
 const downloadLatestData = async () => {
   let now = new Date();
-  for (let i = 0; i < MAX_DOWNLOAD_RETRY_COUNT; i++) {
+  for (let i = 0; i < MAX_DOWNLOAD_RETRY_COUNT_CURRENT; i++) {
     try {
       const { cursusUsers, timeCreated } = await downloadCursusUsersJson(now);
       return { cursusUsers, timeCreated };
@@ -30,13 +31,13 @@ const downloadWeeklyData = async (timeCreated: Date) => {
   let date = timeCreated;
   const weeklyData = [];
 
-  for (let i = 0; i < MAX_DOWNLOAD_RETRY_COUNT; i++) {
+  for (let i = 0; i < MAX_DOWNLOAD_RETRY_COUNT_WEEKLY; i++) {
     date = sub(date, { days: 7 });
     try {
       const { cursusUsers, timeCreated } = await downloadCursusUsersJson(date);
       weeklyData.push({ cursusUsers, timeCreated });
     } catch (e: any) {
-      break;
+      // do nothing
     }
   }
   return weeklyData.reverse();
