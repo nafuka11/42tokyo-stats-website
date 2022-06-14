@@ -12,7 +12,8 @@ import { isStudent } from "./filter";
 
 export const aggregateContents = (
   rawCursusUsers: CursusUser[],
-  timeCreated: Date
+  timeCreated: Date,
+  rawWeeklyData: { cursusUsers: CursusUser[]; timeCreated: Date }[]
 ): Contents => {
   const cursusUsers = rawCursusUsers.filter(isStudent);
 
@@ -34,6 +35,15 @@ export const aggregateContents = (
     beginAtList,
     timeCreated
   );
+  const weeklyData = rawWeeklyData.map((v) => ({
+    currentStudents: generateCurrentStudentsTable(
+      cursusUsers,
+      beginAtList,
+      maxLevel,
+      v.timeCreated
+    ),
+    updatedAt: v.timeCreated.toISOString(),
+  }));
 
   const contents = {
     updatedAt: timeCreated.toISOString(),
@@ -43,6 +53,7 @@ export const aggregateContents = (
     allStudents,
     currentStudents,
     futureStudentIndexes,
+    weeklyData,
   };
   return contents;
 };
