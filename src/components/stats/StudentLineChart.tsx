@@ -12,14 +12,14 @@ const StudentLineChart = (props: Props) => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "学生数推移",
+      text: "",
     },
     time: {
       timezoneOffset: (getTimezoneOffset(TIMEZONE_FRONT) / 1000 / 60) * -1,
     },
     xAxis: {
       title: {
-        text: "日付",
+        text: "",
       },
       type: "datetime",
       dateTimeLabelFormats: {
@@ -30,8 +30,13 @@ const StudentLineChart = (props: Props) => {
     },
     yAxis: {
       title: {
-        text: "学生数",
+        text: "",
       },
+      labels: {
+        format: "{value}人",
+      },
+      min: 0,
+      opposite: true,
     },
     tooltip: {
       headerFormat: "{point.x:%Y/%m/%d}<br/>",
@@ -53,7 +58,7 @@ const StudentLineChart = (props: Props) => {
       highcharts={Highcharts}
       options={options}
       containerProps={{
-        style: { height: "100%", witdh: "100%", margin: "0 auto" },
+        style: { height: "100%", witdh: "100%" },
       }}
     />
   );
