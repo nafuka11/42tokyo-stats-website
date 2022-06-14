@@ -69,7 +69,12 @@ const Stats = () => {
   });
 
   return (
-    <Container sx={{ pt: 2, pb: 2 }}>
+    <Container sx={{ pt: 0.5, pb: 2 }}>
+      <Grid container mb={1}>
+        <Grid item xs={12} sx={{ pl: 1 }}>
+          <LastUpdate updatedAt={contents.updatedAt} />
+        </Grid>
+      </Grid>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
