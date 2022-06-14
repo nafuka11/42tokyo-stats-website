@@ -3,15 +3,11 @@ import {
   Box,
   CircularProgress,
   Container,
-  Divider,
   Grid,
-  Stack,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import LevelStudentChart from "./LevelStudentChart";
-import StudentCount from "./StudentCount";
 import SurvivalRateChart from "./SurvivalRateChart";
 import EvaluationPointSummary from "./EvaluationPointSummary";
 import StatsCard from "./StatsCard";
@@ -20,6 +16,7 @@ import FutureStudentCount from "./FutureStudentCount";
 import { Contents } from "../../types/Contents";
 import { getBeginAtTotal } from "../../services/pick-contents";
 import BeginAtLevelTable from "./BeginAtLevelTable";
+import StudentLineChart from "./StudentLineChart";
 
 const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
   ssr: false,
@@ -27,7 +24,6 @@ const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
 
 const Stats = () => {
   const theme = useTheme();
-  const isMobileSize = useMediaQuery(theme.breakpoints.down("sm"));
   const [contents, setContents] = useState<Contents | null>(null);
 
   useEffect(() => {
@@ -56,6 +52,21 @@ const Stats = () => {
     contents.allStudents
       .filter((_, i) => contents.futureStudentIndexes.includes(i))
       .reduce((prev, v) => prev + v[v.length - 1], 0);
+  const weeklyStudents = contents.weeklyData.map((v) => {
+    const count =
+      v.currentStudents[v.currentStudents.length - 1][
+        v.currentStudents[0].length - 1
+      ];
+    const updatedAt = new Date(v.updatedAt);
+    return { count, updatedAt };
+  });
+  weeklyStudents.push({
+    count:
+      contents.currentStudents[contents.currentStudents.length - 1][
+        contents.currentStudents[0].length - 1
+      ],
+    updatedAt: new Date(contents.updatedAt),
+  });
 
   return (
     <Container sx={{ pt: 2, pb: 2 }}>
@@ -66,35 +77,14 @@ const Stats = () => {
         mb={2}
         justifyContent="center"
       >
-        <Grid item xs={12} sm={2} md={2}>
-          <Box height={{ xs: undefined, sm: 300 }}>
+        <Grid item xs={4} sm={2} md={4}>
+          <Box height={{ xs: 240, sm: 300 }}>
             <StatsCard>
-              <Stack
-                divider={
-                  <Divider
-                    flexItem
-                    orientation={isMobileSize ? "vertical" : "horizontal"}
-                  />
-                }
-                spacing={1}
-                justifyContent="space-around"
-                height="100%"
-                direction={{ xs: "row", sm: "column" }}
-              >
-                <LastUpdate updatedAt={contents.updatedAt} />
-                <StudentCount
-                  current={currentStudentCount}
-                  all={allStudentCount}
-                />
-                <EvaluationPointSummary
-                  evaluationPoint={contents.evaluationPointSum}
-                  students={currentStudentCount}
-                />
-              </Stack>
+              <StudentLineChart students={weeklyStudents} />
             </StatsCard>
           </Box>
         </Grid>
-        <Grid item xs={2} sm={3} md={5}>
+        <Grid item xs={2} sm={3} md={4}>
           <Box height={300}>
             <StatsCard>
               <LevelStudentChart
@@ -105,7 +95,7 @@ const Stats = () => {
             </StatsCard>
           </Box>
         </Grid>
-        <Grid item xs={2} sm={3} md={5}>
+        <Grid item xs={2} sm={3} md={4}>
           <Box height={300}>
             <StatsCard>
               <SurvivalRateChart
@@ -122,7 +112,6 @@ const Stats = () => {
         container
         columns={{ xs: 4, sm: 8, md: 12 }}
         spacing={{ xs: 2, md: 3 }}
-        sx={{ justifyContent: "space-between" }}
         mb={2}
       >
         {contents.beginAtList
