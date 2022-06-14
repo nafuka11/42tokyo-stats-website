@@ -83,15 +83,15 @@ const Stats = () => {
         justifyContent="center"
       >
         <Grid item xs={4} sm={2} md={4}>
-          <Box height={{ xs: 240, sm: 300 }}>
-            <StatsCard>
+          <Box height={300}>
+            <StatsCard padding={1}>
               <StudentLineChart students={weeklyStudents} />
             </StatsCard>
           </Box>
         </Grid>
         <Grid item xs={2} sm={3} md={4}>
           <Box height={300}>
-            <StatsCard>
+            <StatsCard padding={1}>
               <LevelStudentChart
                 currentStudents={contents.currentStudents}
                 studentCount={currentStudentCount}
@@ -102,7 +102,7 @@ const Stats = () => {
         </Grid>
         <Grid item xs={2} sm={3} md={4}>
           <Box height={300}>
-            <StatsCard>
+            <StatsCard padding={1}>
               <SurvivalRateChart
                 beginAtList={contents.beginAtList}
                 allStudents={getBeginAtTotal(contents.allStudents)}
@@ -123,7 +123,7 @@ const Stats = () => {
           .filter((beginAt) => beginAt < contents.updatedAt)
           .map((beginAt, i) => (
             <Grid item xs={2} sm={2.6} md={3} key={beginAt} minHeight={200}>
-              <StatsCard>
+              <StatsCard padding={1}>
                 <LevelPieChart
                   beginAt={beginAt}
                   students={contents.currentStudents[i]}
