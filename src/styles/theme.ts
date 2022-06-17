@@ -1,6 +1,11 @@
 import { createTheme, responsiveFontSizes } from "@mui/material";
 
 const userTheme = createTheme({
+  palette: {
+    background: {
+      default: "#f8f9fa",
+    },
+  },
   components: {
     MuiButton: {
       styleOverrides: {
