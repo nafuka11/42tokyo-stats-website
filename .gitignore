@@ -36,3 +36,5 @@ yarn-error.log*
 
 # Project settings
 contents/*.json
+!contents/demo-contents.json
+
