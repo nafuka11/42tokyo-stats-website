@@ -2,15 +2,24 @@ import { resolve } from "path";
 import { readFileSync, writeFileSync } from "fs";
 import { Contents } from "../types/Contents";
 
-const CURSUS_USERS_DIR = resolve(process.cwd(), "contents");
-const CONTENT_FILE = resolve(CURSUS_USERS_DIR, "contents.json");
+const CONTENTS_DIR = resolve(process.cwd(), "contents");
+const CONTENTS_FILE = resolve(CONTENTS_DIR, "contents.json");
+const DEMO_FILE = resolve(CONTENTS_DIR, "demo-contents.json");
 
 export const writeContents = async (contents: any) => {
-  await writeFileSync(CONTENT_FILE, JSON.stringify(contents));
+  await writeFileSync(CONTENTS_FILE, JSON.stringify(contents));
 };
 
 export const readContents = (): Contents => {
-  const json = readFileSync(CONTENT_FILE, "utf8");
+  return readLocalContents(CONTENTS_FILE);
+};
+
+export const readDemoContents = (): Contents => {
+  return readLocalContents(DEMO_FILE);
+};
+
+const readLocalContents = (fileName: string): Contents => {
+  const json = readFileSync(fileName, "utf8");
   const contents: Contents = JSON.parse(json);
   return contents;
 };

@@ -4,7 +4,7 @@ import Login from "../components/login/Login";
 import Stats from "../components/stats/Stats";
 import { Fade } from "@mui/material";
 
-const Home: NextPage = () => {
+const IndexPage: NextPage = () => {
   const { data: session, status } = useSession();
 
   return (
@@ -17,4 +17,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default IndexPage;

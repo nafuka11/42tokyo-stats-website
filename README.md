@@ -2,6 +2,13 @@
 
 42Tokyoの統計情報を表示するウェブサイトです。
 
+## URL
+
+|対象|URL|
+|--|--|
+|42の学生|https://42tokyo-stats.vercel.app/|
+|42の学生以外の方|https://42tokyo-stats.vercel.app/demo (デモページを見ることができます)|
+
 ## 必要物
 
 - [42 API](https://api.intra.42.fr/apidoc)
