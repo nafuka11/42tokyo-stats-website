@@ -38,6 +38,13 @@
    | FIREBASE_SERVICE_ACCOUNT_BASE64 | サービスアカウントキーが含まれるJSONファイルをbase64変換したもの<br />`cat service-account-file.json \| jq -c . \| base64` で生成できます |
    | BUCKET_NAME                     | Cloud Storageのバケット名                                    |
 
+   以下はローカルの開発時のみ必要な環境変数です。Vercelのデプロイ時に環境変数が設定されるため、Vercel側の設定は不要です。
+
+   | 環境変数名            | 説明                                              |
+   | --------------------- | ------------------------------------------------- |
+   | VERCEL_GIT_REPO_OWNER | GitHubのリポジトリのオーナー名（例：nafuka11）    |
+   | VERCEL_GIT_REPO_SLUG  | GitHubのリポジトリ名（例：42tokyo-stats-website） |
+
 注意点
 
 - Vercelのデプロイ時には環境変数のサイズが4KBに制限されています。制限を超えるとデプロイが失敗します。
