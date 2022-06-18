@@ -57,7 +57,7 @@ const StudentTransitionContent = (props: Props) => {
         <Typography variant="h5">{currentStudentCount}</Typography>
         <ChangeRateText changeRate={changeRate} />
       </Box>
-      <Box sx={{ height: 200 }}>
+      <Box sx={{ height: { xs: 160, sm: 200 } }}>
         <StudentLineChart students={weeklyStudents} />
       </Box>
     </>
