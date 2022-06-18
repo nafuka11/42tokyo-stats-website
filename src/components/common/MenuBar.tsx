@@ -11,6 +11,7 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
+import { REPOSITORY_URL } from "../../constants/url";
 import Logo from "./Logo";
 
 const MenuBar = () => {
@@ -31,10 +32,7 @@ const MenuBar = () => {
         <Toolbar variant="dense">
           <Logo />
           <Box sx={{ flexGrow: 1 }} />
-          <Link
-            href={`https://github.com/${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}`}
-            passHref
-          >
+          <Link href={REPOSITORY_URL} passHref>
             <IconButton
               size="large"
               component="a"
