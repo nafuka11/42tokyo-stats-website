@@ -1,7 +1,5 @@
 import dynamic from "next/dynamic";
 import { Box, Container, Grid } from "@mui/material";
-import LevelStudentChart from "./LevelStudentChart";
-import SurvivalRateChart from "./SurvivalRateChart";
 import EvaluationPointSummary from "./EvaluationPointSummary";
 import StatsCard from "./StatsCard";
 import LastUpdate from "./LastUpdate";
@@ -10,6 +8,14 @@ import { Contents } from "../../types/Contents";
 import { getBeginAtTotal } from "../../services/pick-contents";
 import BeginAtLevelTable from "./BeginAtLevelTable";
 import StudentTransitionContent from "./StudentTransitionContent";
+
+const LevelStudentChart = dynamic(() => import("./LevelStudentChart"), {
+  ssr: false,
+});
+
+const SurvivalRateChart = dynamic(() => import("./SurvivalRateChart"), {
+  ssr: false,
+});
 
 const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
   ssr: false,
