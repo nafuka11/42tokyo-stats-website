@@ -1,10 +1,17 @@
 import { Typography } from "@mui/material";
+import Link from "next/link";
 
 const Logo = () => {
   return (
-    <Typography sx={{ fontWeight: 500, color: "#444" }} variant="h6">
-      42Tokyo Stats
-    </Typography>
+    <Link href="/" passHref>
+      <Typography
+        sx={{ fontWeight: 500, color: "#444" }}
+        variant="h6"
+        component="a"
+      >
+        42Tokyo Stats
+      </Typography>
+    </Link>
   );
 };
 
