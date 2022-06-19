@@ -2,7 +2,11 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import ArrowUpwardSharpIcon from "@mui/icons-material/ArrowUpwardSharp";
 import { Box, Typography } from "@mui/material";
-import StudentLineChart from "./StudentLineChart";
+import dynamic from "next/dynamic";
+
+const StudentLineChart = dynamic(() => import("./StudentLineChart"), {
+  ssr: false,
+});
 
 type Props = {
   weeklyStudents: { count: number; updatedAt: Date }[];
