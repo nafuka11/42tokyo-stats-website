@@ -1,7 +1,7 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import { LEVEL_COLORS } from "../../constants/colors";
-import { excludeTotalFromRow } from "../../services/pick-contents";
+import { LEVEL_COLORS } from "../../../constants/colors";
+import { excludeTotalFromRow } from "../../../services/pick-contents";
 
 type Props = {
   students: number[];

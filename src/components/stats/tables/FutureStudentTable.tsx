@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { getTotalFromRow } from "../../services/pick-contents";
+import { getTotalFromRow } from "../../../services/pick-contents";
 
 type Props = {
   beginAtList: string[];
@@ -15,7 +15,7 @@ type Props = {
   futureStudentIndexes: number[];
 };
 
-const FutureStudentCount = (props: Props) => {
+const FutureStudentTable = (props: Props) => {
   const { beginAtList, allStudents, futureStudentIndexes } = props;
   const futureBeginAtList = futureStudentIndexes.map((index) => ({
     beginAt: beginAtList[index],
@@ -47,4 +47,4 @@ const FutureStudentCount = (props: Props) => {
   );
 };
 
-export default FutureStudentCount;
+export default FutureStudentTable;

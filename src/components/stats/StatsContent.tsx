@@ -1,17 +1,17 @@
 import dynamic from "next/dynamic";
 import { Box, Container, Grid } from "@mui/material";
-import LevelStudentChart from "./LevelStudentChart";
-import SurvivalRateChart from "./SurvivalRateChart";
+import LevelStudentChart from "./charts/LevelStudentChart";
+import SurvivalRateChart from "./charts/SurvivalRateChart";
 import EvaluationPointSummary from "./EvaluationPointSummary";
 import StatsCard from "./StatsCard";
 import LastUpdate from "./LastUpdate";
-import FutureStudentCount from "./FutureStudentCount";
+import FutureStudentTable from "./tables/FutureStudentTable";
 import { Contents } from "../../types/Contents";
 import { getBeginAtTotal } from "../../services/pick-contents";
-import BeginAtLevelTable from "./BeginAtLevelTable";
+import BeginAtLevelTable from "./tables/BeginAtLevelTable";
 import StudentTransitionContent from "./StudentTransitionContent";
 
-const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
+const LevelPieChart = dynamic(() => import("./charts/LevelPieChart"), {
   ssr: false,
 });
 
@@ -121,7 +121,7 @@ const StatsContent = (props: Props) => {
       </Grid>
       <Box mb={2}>
         <StatsCard>
-          <FutureStudentCount
+          <FutureStudentTable
             beginAtList={contents.beginAtList}
             allStudents={contents.allStudents}
             futureStudentIndexes={contents.futureStudentIndexes}
