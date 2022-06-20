@@ -7,7 +7,7 @@ type Props = {
   contents: Contents;
 };
 
-const Demo: NextPage<Props> = (props: Props) => {
+const DemoPage: NextPage<Props> = (props: Props) => {
   const { contents } = props;
 
   return <StatsContent contents={contents} />;
@@ -23,4 +23,4 @@ export const getStaticProps: GetStaticProps = () => {
   };
 };
 
-export default Demo;
+export default DemoPage;
