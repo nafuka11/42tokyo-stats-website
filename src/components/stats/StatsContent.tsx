@@ -26,11 +26,6 @@ const StatsContent = (props: Props) => {
     contents.currentStudents[contents.beginAtList.length][
       contents.maxLevel + 1
     ];
-  const allStudentCount =
-    contents.allStudents[contents.beginAtList.length][contents.maxLevel + 1] -
-    contents.allStudents
-      .filter((_, i) => contents.futureStudentIndexes.includes(i))
-      .reduce((prev, v) => prev + v[v.length - 1], 0);
   const weeklyStudents = contents.weeklyData.map((v) => {
     const count =
       v.currentStudents[v.currentStudents.length - 1][
