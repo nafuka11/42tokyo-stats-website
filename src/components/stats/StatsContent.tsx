@@ -7,7 +7,7 @@ import StatsCard from "./StatsCard";
 import LastUpdate from "./LastUpdate";
 import FutureStudentTable from "./tables/FutureStudentTable";
 import { Contents } from "../../types/Contents";
-import { getBeginAtTotal } from "../../services/pick-contents";
+import { getBeginAtTotalArray } from "../../services/pick-contents";
 import BeginAtLevelTable from "./tables/BeginAtLevelTable";
 import StudentTransitionContent from "./StudentTransitionContent";
 
@@ -79,8 +79,8 @@ const StatsContent = (props: Props) => {
             <StatsCard padding={1}>
               <SurvivalRateChart
                 beginAtList={contents.beginAtList}
-                allStudents={getBeginAtTotal(contents.allStudents)}
-                currentStudents={getBeginAtTotal(contents.currentStudents)}
+                allStudents={getBeginAtTotalArray(contents.allStudents)}
+                currentStudents={getBeginAtTotalArray(contents.currentStudents)}
                 futureStudentIndexes={contents.futureStudentIndexes}
               />
             </StatsCard>
