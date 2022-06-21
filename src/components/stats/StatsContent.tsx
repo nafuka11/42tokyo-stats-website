@@ -1,17 +1,21 @@
 import dynamic from "next/dynamic";
 import { Box, Container, Grid } from "@mui/material";
-import LevelStudentChart from "./LevelStudentChart";
-import SurvivalRateChart from "./SurvivalRateChart";
+import LevelStudentChart from "./charts/LevelStudentChart";
+import SurvivalRateChart from "./charts/SurvivalRateChart";
 import EvaluationPointSummary from "./EvaluationPointSummary";
 import StatsCard from "./StatsCard";
 import LastUpdate from "./LastUpdate";
-import FutureStudentCount from "./FutureStudentCount";
+import FutureStudentTable from "./tables/FutureStudentTable";
 import { Contents } from "../../types/Contents";
-import { getBeginAtTotal } from "../../services/pick-contents";
-import BeginAtLevelTable from "./BeginAtLevelTable";
+import {
+  generateWeeklyStudents,
+  getBeginAtTotalArray,
+  getStudentTotal,
+} from "../../services/pick-contents";
+import BeginAtLevelTable from "./tables/BeginAtLevelTable";
 import StudentTransitionContent from "./StudentTransitionContent";
 
-const LevelPieChart = dynamic(() => import("./LevelPieChart"), {
+const LevelPieChart = dynamic(() => import("./charts/LevelPieChart"), {
   ssr: false,
 });
 
@@ -22,30 +26,12 @@ type Props = {
 const StatsContent = (props: Props) => {
   const { contents } = props;
 
-  const currentStudentCount =
-    contents.currentStudents[contents.beginAtList.length][
-      contents.maxLevel + 1
-    ];
-  const allStudentCount =
-    contents.allStudents[contents.beginAtList.length][contents.maxLevel + 1] -
-    contents.allStudents
-      .filter((_, i) => contents.futureStudentIndexes.includes(i))
-      .reduce((prev, v) => prev + v[v.length - 1], 0);
-  const weeklyStudents = contents.weeklyData.map((v) => {
-    const count =
-      v.currentStudents[v.currentStudents.length - 1][
-        v.currentStudents[0].length - 1
-      ];
-    const updatedAt = new Date(v.updatedAt);
-    return { count, updatedAt };
-  });
-  weeklyStudents.push({
-    count:
-      contents.currentStudents[contents.currentStudents.length - 1][
-        contents.currentStudents[0].length - 1
-      ],
-    updatedAt: new Date(contents.updatedAt),
-  });
+  const currentStudentCount = getStudentTotal(contents.currentStudents);
+  const weeklyStudents = generateWeeklyStudents(
+    contents.weeklyData,
+    contents.currentStudents,
+    contents.updatedAt
+  );
 
   return (
     <Container sx={{ pt: 0.5, pb: 2 }}>
@@ -84,8 +70,8 @@ const StatsContent = (props: Props) => {
             <StatsCard padding={1}>
               <SurvivalRateChart
                 beginAtList={contents.beginAtList}
-                allStudents={getBeginAtTotal(contents.allStudents)}
-                currentStudents={getBeginAtTotal(contents.currentStudents)}
+                allStudents={getBeginAtTotalArray(contents.allStudents)}
+                currentStudents={getBeginAtTotalArray(contents.currentStudents)}
                 futureStudentIndexes={contents.futureStudentIndexes}
               />
             </StatsCard>
@@ -121,7 +107,7 @@ const StatsContent = (props: Props) => {
       </Grid>
       <Box mb={2}>
         <StatsCard>
-          <FutureStudentCount
+          <FutureStudentTable
             beginAtList={contents.beginAtList}
             allStudents={contents.allStudents}
             futureStudentIndexes={contents.futureStudentIndexes}

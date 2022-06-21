@@ -1,6 +1,6 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import { TIMEZONE_FRONT } from "../../constants/time";
+import { TIMEZONE_FRONT } from "../../../constants/time";
 import { getTimezoneOffset } from "date-fns-tz";
 
 type Props = {

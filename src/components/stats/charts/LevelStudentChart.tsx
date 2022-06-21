@@ -1,7 +1,7 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import { LEVEL_COLORS } from "../../constants/colors";
-import { getLevelTotal } from "../../services/pick-contents";
+import { LEVEL_COLORS } from "../../../constants/colors";
+import { getLevelTotalArray } from "../../../services/pick-contents";
 
 type Props = {
   currentStudents: number[][];
@@ -53,7 +53,7 @@ const LevelStudentChart = (props: Props) => {
     series: [
       {
         type: "column",
-        data: getLevelTotal(currentStudents).map((value, i) => ({
+        data: getLevelTotalArray(currentStudents).map((value, i) => ({
           y: value,
           color: LEVEL_COLORS[i],
           percentage: (value / studentCount) * 100,
