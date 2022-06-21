@@ -7,7 +7,11 @@ import StatsCard from "./StatsCard";
 import LastUpdate from "./LastUpdate";
 import FutureStudentTable from "./tables/FutureStudentTable";
 import { Contents } from "../../types/Contents";
-import { getBeginAtTotalArray } from "../../services/pick-contents";
+import {
+  generateWeeklyStudents,
+  getBeginAtTotalArray,
+  getStudentTotal,
+} from "../../services/pick-contents";
 import BeginAtLevelTable from "./tables/BeginAtLevelTable";
 import StudentTransitionContent from "./StudentTransitionContent";
 
@@ -22,25 +26,12 @@ type Props = {
 const StatsContent = (props: Props) => {
   const { contents } = props;
 
-  const currentStudentCount =
-    contents.currentStudents[contents.beginAtList.length][
-      contents.maxLevel + 1
-    ];
-  const weeklyStudents = contents.weeklyData.map((v) => {
-    const count =
-      v.currentStudents[v.currentStudents.length - 1][
-        v.currentStudents[0].length - 1
-      ];
-    const updatedAt = new Date(v.updatedAt);
-    return { count, updatedAt };
-  });
-  weeklyStudents.push({
-    count:
-      contents.currentStudents[contents.currentStudents.length - 1][
-        contents.currentStudents[0].length - 1
-      ],
-    updatedAt: new Date(contents.updatedAt),
-  });
+  const currentStudentCount = getStudentTotal(contents.currentStudents);
+  const weeklyStudents = generateWeeklyStudents(
+    contents.weeklyData,
+    contents.currentStudents,
+    contents.updatedAt
+  );
 
   return (
     <Container sx={{ pt: 0.5, pb: 2 }}>
