@@ -22,6 +22,9 @@ const TransitionLineChart = (props: Props) => {
     time: {
       timezoneOffset: (getTimezoneOffset(TIMEZONE_FRONT) / 1000 / 60) * -1,
     },
+    chart: {
+      marginRight: 55,
+    },
     xAxis: {
       title: {
         text: "",
