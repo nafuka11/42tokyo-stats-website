@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import { Box, Container, Grid } from "@mui/material";
 import LevelStudentChart from "./charts/LevelStudentChart";
 import SurvivalRateChart from "./charts/SurvivalRateChart";
-import EvaluationPointSummary from "./EvaluationPointSummary";
 import StatsCard from "./StatsCard";
 import LastUpdate from "./LastUpdate";
 import FutureStudentTable from "./tables/FutureStudentTable";
@@ -90,14 +89,6 @@ const StatsContent = (props: Props) => {
               </StatsCard>
             </Grid>
           ))}
-        <Grid item xs={2} sm={2.6} md={3} minHeight={200}>
-          <StatsCard>
-            <EvaluationPointSummary
-              evaluationPoint={contents.evaluationPointSum}
-              students={currentStudentCount}
-            />
-          </StatsCard>
-        </Grid>
       </Grid>
       <Box mb={2}>
         <StatsCard>
