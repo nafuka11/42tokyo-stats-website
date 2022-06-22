@@ -40,14 +40,14 @@ const StatsContent = (props: Props) => {
         mb={2}
         justifyContent="center"
       >
-        <Grid item xs={4} sm={2} md={4}>
+        <Grid item xs={4} sm={8 / 3} md={4}>
           <Box height={{ xs: 260, sm: 300 }}>
             <StatsCard padding={1}>
               <StudentTransitionContent weeklyData={contents.weeklyData} />
             </StatsCard>
           </Box>
         </Grid>
-        <Grid item xs={2} sm={3} md={4}>
+        <Grid item xs={2} sm={8 / 3} md={4}>
           <Box height={300}>
             <StatsCard padding={1}>
               <LevelStudentChart
@@ -58,7 +58,7 @@ const StatsContent = (props: Props) => {
             </StatsCard>
           </Box>
         </Grid>
-        <Grid item xs={2} sm={3} md={4}>
+        <Grid item xs={2} sm={8 / 3} md={4}>
           <Box height={300}>
             <StatsCard padding={1}>
               <SurvivalRateChart
