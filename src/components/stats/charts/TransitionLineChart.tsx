@@ -8,7 +8,7 @@ type Props = {
   students: PeriodData[];
 };
 
-const StudentLineChart = (props: Props) => {
+const TransitionLineChart = (props: Props) => {
   const { students } = props;
 
   const options: Highcharts.Options = {
@@ -68,4 +68,4 @@ const StudentLineChart = (props: Props) => {
   );
 };
 
-export default StudentLineChart;
+export default TransitionLineChart;

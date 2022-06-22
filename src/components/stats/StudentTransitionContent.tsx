@@ -3,7 +3,7 @@ import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import ArrowUpwardSharpIcon from "@mui/icons-material/ArrowUpwardSharp";
 import { Box, Typography } from "@mui/material";
 import { PeriodData } from "../../types/Contents";
-import StudentLineChart from "./charts/StudentLineChart";
+import TransitionLineChart from "./charts/TransitionLineChart";
 
 type Props = {
   weeklyStudents: PeriodData[];
