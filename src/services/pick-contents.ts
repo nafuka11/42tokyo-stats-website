@@ -58,26 +58,3 @@ export const getStudentTotal = (students: number[][]): number => {
     students[students.length - 1].length - 1
   ];
 };
-
-export const generateWeeklyStudents = (
-  weeklyData: PeriodData[],
-  currentStudents: number[][],
-  updatedAt: string
-) => {
-  const weeklyStudents = weeklyData.map((v) => {
-    const count =
-      v.currentStudents[v.currentStudents.length - 1][
-        v.currentStudents[0].length - 1
-      ];
-    const updatedAt = new Date(v.updatedAt);
-    return { count, updatedAt };
-  });
-  weeklyStudents.push({
-    count:
-      currentStudents[currentStudents.length - 1][
-        currentStudents[0].length - 1
-      ],
-    updatedAt: new Date(updatedAt),
-  });
-  return weeklyStudents;
-};
