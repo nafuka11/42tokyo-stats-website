@@ -17,6 +17,15 @@ const userTheme = createTheme({
         },
       },
     },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            color: "#000",
+          },
+        },
+      },
+    },
   },
 });
 
