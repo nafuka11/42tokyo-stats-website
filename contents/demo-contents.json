@@ -31,17 +31,17 @@
   "weeklyData": [
     {
       "currentStudentSum": 24,
-      "evaluationPointSum": 42,
+      "evaluationPointAverage": 1.25,
       "updatedAt": "2042-03-18T15:00:00.000Z"
     },
     {
       "currentStudentSum": 28,
-      "evaluationPointSum": 42,
+      "evaluationPointAverage": 1.50,
       "updatedAt": "2042-03-25T15:00:00.000Z"
     },
     {
       "currentStudentSum": 21,
-      "evaluationPointSum": 42,
+      "evaluationPointAverage": 2.00,
       "updatedAt": "2042-04-01T15:00:00.000Z"
     }
   ]
