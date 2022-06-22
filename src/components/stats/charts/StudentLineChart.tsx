@@ -2,9 +2,10 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import { TIMEZONE_FRONT } from "../../../constants/time";
 import { getTimezoneOffset } from "date-fns-tz";
+import { PeriodData } from "../../../types/Contents";
 
 type Props = {
-  students: { count: number; updatedAt: Date }[];
+  students: PeriodData[];
 };
 
 const StudentLineChart = (props: Props) => {
@@ -49,7 +50,10 @@ const StudentLineChart = (props: Props) => {
     series: [
       {
         type: "line",
-        data: students.map((v) => ({ x: v.updatedAt.getTime(), y: v.count })),
+        data: students.map((v) => ({
+          x: new Date(v.updatedAt).getTime(),
+          y: v.currentStudentSum,
+        })),
       },
     ],
   };

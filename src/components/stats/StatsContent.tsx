@@ -8,7 +8,6 @@ import LastUpdate from "./LastUpdate";
 import FutureStudentTable from "./tables/FutureStudentTable";
 import { Contents } from "../../types/Contents";
 import {
-  generateWeeklyStudents,
   getBeginAtTotalArray,
   getStudentTotal,
 } from "../../services/pick-contents";
@@ -27,11 +26,6 @@ const StatsContent = (props: Props) => {
   const { contents } = props;
 
   const currentStudentCount = getStudentTotal(contents.currentStudents);
-  const weeklyStudents = generateWeeklyStudents(
-    contents.weeklyData,
-    contents.currentStudents,
-    contents.updatedAt
-  );
 
   return (
     <Container sx={{ pt: 0.5, pb: 2 }}>
@@ -50,7 +44,7 @@ const StatsContent = (props: Props) => {
         <Grid item xs={4} sm={2} md={4}>
           <Box height={{ xs: 260, sm: 300 }}>
             <StatsCard padding={1}>
-              <StudentTransitionContent weeklyStudents={weeklyStudents} />
+              <StudentTransitionContent weeklyStudents={contents.weeklyData} />
             </StatsCard>
           </Box>
         </Grid>

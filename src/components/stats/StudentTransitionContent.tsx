@@ -2,10 +2,11 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import ArrowUpwardSharpIcon from "@mui/icons-material/ArrowUpwardSharp";
 import { Box, Typography } from "@mui/material";
+import { PeriodData } from "../../types/Contents";
 import StudentLineChart from "./charts/StudentLineChart";
 
 type Props = {
-  weeklyStudents: { count: number; updatedAt: Date }[];
+  weeklyStudents: PeriodData[];
 };
 
 type ChangeRateProps = {
@@ -44,9 +45,10 @@ const ChangeRateText = (props: ChangeRateProps) => {
 const StudentTransitionContent = (props: Props) => {
   const { weeklyStudents } = props;
 
-  const currentStudentCount = weeklyStudents[weeklyStudents.length - 1].count;
+  const currentStudentCount =
+    weeklyStudents[weeklyStudents.length - 1].currentStudentSum;
   const changeRate =
-    (currentStudentCount / weeklyStudents[0].count) * 100 - 100;
+    (currentStudentCount / weeklyStudents[0].currentStudentSum) * 100 - 100;
 
   return (
     <>
