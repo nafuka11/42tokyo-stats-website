@@ -11,6 +11,6 @@ export type Contents = {
 
 export type PeriodData = {
   currentStudentSum: number;
-  evaluationPointSum: number;
+  evaluationPointAverage: number;
   updatedAt: string;
 };

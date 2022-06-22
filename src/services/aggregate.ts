@@ -80,15 +80,18 @@ export const generateWeeklyData = (
       maxLevel,
       v.timeCreated
     );
+    const currentStudentSum = getStudentTotal(currentStudentsTable);
+    const evaluationPointSum = sumEvaluationPoints(cursusUsers, v.timeCreated);
     return {
-      currentStudentSum: getStudentTotal(currentStudentsTable),
-      evaluationPointSum: sumEvaluationPoints(cursusUsers, v.timeCreated),
+      currentStudentSum,
+      evaluationPointAverage: evaluationPointSum / currentStudentSum,
       updatedAt: v.timeCreated.toISOString(),
     };
   });
+  const currentStudentSum = getStudentTotal(currentStudents);
   weeklyData.push({
-    currentStudentSum: getStudentTotal(currentStudents),
-    evaluationPointSum: evaluationPointSum,
+    currentStudentSum,
+    evaluationPointAverage: evaluationPointSum / currentStudentSum,
     updatedAt: timeCreated.toISOString(),
   });
   return weeklyData;
