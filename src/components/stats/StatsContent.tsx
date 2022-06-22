@@ -44,7 +44,7 @@ const StatsContent = (props: Props) => {
         <Grid item xs={4} sm={2} md={4}>
           <Box height={{ xs: 260, sm: 300 }}>
             <StatsCard padding={1}>
-              <StudentTransitionContent weeklyStudents={contents.weeklyData} />
+              <StudentTransitionContent weeklyData={contents.weeklyData} />
             </StatsCard>
           </Box>
         </Grid>
