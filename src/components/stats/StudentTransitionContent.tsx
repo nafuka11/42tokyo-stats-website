@@ -105,11 +105,24 @@ const StudentTransitionContent = (props: Props) => {
         </Tabs>
       </Box>
       <TabPanel value={tabIndex} index={0}>
-      <Box sx={{ height: { xs: 160, sm: 200 } }}>
-        <StudentLineChart students={weeklyStudents} />
-      </Box>
+        <Box sx={{ height: { xs: 140, sm: 180 } }}>
+          <TransitionLineChart
+            name="学生数"
+            data={weeklyData}
+            pickData={(data) => data.currentStudentSum}
+            unit="人"
+          />
+        </Box>
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
+        <Box sx={{ height: { xs: 140, sm: 180 } }}>
+          <TransitionLineChart
+            name="エバポ平均"
+            data={weeklyData}
+            pickData={(data) => data.evaluationPointAverage}
+            fixedDigit={2}
+          />
+        </Box>
       </TabPanel>
     </>
   );

@@ -5,11 +5,15 @@ import { getTimezoneOffset } from "date-fns-tz";
 import { PeriodData } from "../../../types/Contents";
 
 type Props = {
-  students: PeriodData[];
+  data: PeriodData[];
+  pickData: (data: PeriodData) => number;
+  name: string;
+  unit?: string;
+  fixedDigit?: number;
 };
 
 const TransitionLineChart = (props: Props) => {
-  const { students } = props;
+  const { data, pickData, name, unit, fixedDigit } = props;
 
   const options: Highcharts.Options = {
     title: {
@@ -34,15 +38,16 @@ const TransitionLineChart = (props: Props) => {
         text: "",
       },
       labels: {
-        format: "{value}人",
+        format: `{value}${unit ?? ""}`,
       },
       min: 0,
       opposite: true,
     },
     tooltip: {
       headerFormat: "{point.x:%Y/%m/%d}<br/>",
-      pointFormat:
-        '<span style="color: {point.color}">\u25CF</span> 学生数: <b>{point.y}</b>',
+      pointFormat: `<span style="color: {point.color}">\u25CF</span> ${name}: <b>{point.y:.${
+        fixedDigit ?? 0
+      }f}</b>`,
     },
     legend: {
       enabled: false,
@@ -50,9 +55,9 @@ const TransitionLineChart = (props: Props) => {
     series: [
       {
         type: "line",
-        data: students.map((v) => ({
+        data: data.map((v) => ({
           x: new Date(v.updatedAt).getTime(),
-          y: v.currentStudentSum,
+          y: pickData(v),
         })),
       },
     ],
