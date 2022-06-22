@@ -5,10 +5,11 @@ type Props = {
   title: string;
   current: number;
   previous: number;
+  fixedDigit?: number;
 };
 
 const StudentTransitionTab = (props: Props) => {
-  const { title, current, previous } = props;
+  const { title, current, previous, fixedDigit } = props;
   const changeRate = (current / previous) * 100 - 100;
 
   return (
@@ -17,7 +18,7 @@ const StudentTransitionTab = (props: Props) => {
         {title}
       </Typography>
       <Typography variant="h5" color="inherit">
-        {Number.isInteger(current) ? current : current.toFixed(2)}
+        {fixedDigit ? current.toFixed(fixedDigit) : current}
       </Typography>
       <ChangeRateText changeRate={changeRate} />
     </>

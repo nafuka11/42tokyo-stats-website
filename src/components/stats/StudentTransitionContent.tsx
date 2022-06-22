@@ -45,6 +45,7 @@ const StudentTransitionContent = (props: Props) => {
                 title="エバポ平均"
                 current={currentEvaluationPointAverage}
                 previous={previousEvaluationPointAverage}
+                fixedDigit={2}
               />
             }
           />
