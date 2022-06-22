@@ -27,14 +27,18 @@ const ChangeRateText = (props: ChangeRateProps) => {
       {changeRate === 0 ? (
         <ArrowForwardSharpIcon sx={iconSx} />
       ) : changeRate > 0 ? (
-        <ArrowUpwardSharpIcon color="primary" sx={iconSx} />
+        <ArrowUpwardSharpIcon color="success" sx={iconSx} />
       ) : (
         <ArrowDownwardIcon color="error" sx={iconSx} />
       )}
       <Typography
         variant="caption"
         color={
-          changeRate === 0 ? undefined : changeRate > 0 ? "primary" : "error"
+          changeRate === 0
+            ? undefined
+            : changeRate > 0
+            ? "success.main"
+            : "error"
         }
         pl={0.3}
       >
