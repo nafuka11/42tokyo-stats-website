@@ -2,13 +2,18 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import { TIMEZONE_FRONT } from "../../../constants/time";
 import { getTimezoneOffset } from "date-fns-tz";
+import { PeriodData } from "../../../types/Contents";
 
 type Props = {
-  students: { count: number; updatedAt: Date }[];
+  data: PeriodData[];
+  pickData: (data: PeriodData) => number;
+  name: string;
+  unit?: string;
+  fixedDigit?: number;
 };
 
-const StudentLineChart = (props: Props) => {
-  const { students } = props;
+const TransitionLineChart = (props: Props) => {
+  const { data, pickData, name, unit, fixedDigit } = props;
 
   const options: Highcharts.Options = {
     title: {
@@ -16,6 +21,9 @@ const StudentLineChart = (props: Props) => {
     },
     time: {
       timezoneOffset: (getTimezoneOffset(TIMEZONE_FRONT) / 1000 / 60) * -1,
+    },
+    chart: {
+      marginRight: 55,
     },
     xAxis: {
       title: {
@@ -33,15 +41,16 @@ const StudentLineChart = (props: Props) => {
         text: "",
       },
       labels: {
-        format: "{value}人",
+        format: `{value}${unit ?? ""}`,
       },
       min: 0,
       opposite: true,
     },
     tooltip: {
       headerFormat: "{point.x:%Y/%m/%d}<br/>",
-      pointFormat:
-        '<span style="color: {point.color}">\u25CF</span> 学生数: <b>{point.y}</b>',
+      pointFormat: `<span style="color: {point.color}">\u25CF</span> ${name}: <b>{point.y:.${
+        fixedDigit ?? 0
+      }f}</b>`,
     },
     legend: {
       enabled: false,
@@ -49,7 +58,10 @@ const StudentLineChart = (props: Props) => {
     series: [
       {
         type: "line",
-        data: students.map((v) => ({ x: v.updatedAt.getTime(), y: v.count })),
+        data: data.map((v) => ({
+          x: new Date(v.updatedAt).getTime(),
+          y: pickData(v),
+        })),
       },
     ],
   };
@@ -64,4 +76,4 @@ const StudentLineChart = (props: Props) => {
   );
 };
 
-export default StudentLineChart;
+export default TransitionLineChart;

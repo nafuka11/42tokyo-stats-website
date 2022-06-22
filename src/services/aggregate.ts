@@ -1,6 +1,8 @@
 import { format } from "date-fns-tz";
+import { PeriodData } from "../types/Contents";
 import { CursusUser } from "../types/CursusUser";
-import { isCurrentStudent } from "./filter";
+import { isCurrentStudent, isStudent } from "./filter";
+import { getStudentTotal } from "./pick-contents";
 
 export const extractBeginAtList = (cursusUsers: CursusUser[]): string[] => {
   const beginAtSet = cursusUsers.reduce((results, current) => {
@@ -60,6 +62,39 @@ export const findFutureStudentIndexes = (
       return v.beginAt > dateStr;
     })
     .map((v) => v.index);
+};
+
+export const generateWeeklyData = (
+  rawWeeklyData: { cursusUsers: CursusUser[]; timeCreated: Date }[],
+  beginAtList: string[],
+  maxLevel: number,
+  evaluationPointSum: number,
+  currentStudents: number[][],
+  timeCreated: Date
+): PeriodData[] => {
+  const weeklyData = rawWeeklyData.map((v) => {
+    const cursusUsers = v.cursusUsers.filter(isStudent);
+    const currentStudentsTable = generateCurrentStudentsTable(
+      cursusUsers,
+      beginAtList,
+      maxLevel,
+      v.timeCreated
+    );
+    const currentStudentSum = getStudentTotal(currentStudentsTable);
+    const evaluationPointSum = sumEvaluationPoints(cursusUsers, v.timeCreated);
+    return {
+      currentStudentSum,
+      evaluationPointAverage: evaluationPointSum / currentStudentSum,
+      updatedAt: v.timeCreated.toISOString(),
+    };
+  });
+  const currentStudentSum = getStudentTotal(currentStudents);
+  weeklyData.push({
+    currentStudentSum,
+    evaluationPointAverage: evaluationPointSum / currentStudentSum,
+    updatedAt: timeCreated.toISOString(),
+  });
+  return weeklyData;
 };
 
 const generateBeginAtLevelTable = (

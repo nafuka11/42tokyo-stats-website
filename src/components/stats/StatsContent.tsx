@@ -2,13 +2,11 @@ import dynamic from "next/dynamic";
 import { Box, Container, Grid } from "@mui/material";
 import LevelStudentChart from "./charts/LevelStudentChart";
 import SurvivalRateChart from "./charts/SurvivalRateChart";
-import EvaluationPointSummary from "./EvaluationPointSummary";
 import StatsCard from "./StatsCard";
 import LastUpdate from "./LastUpdate";
 import FutureStudentTable from "./tables/FutureStudentTable";
 import { Contents } from "../../types/Contents";
 import {
-  generateWeeklyStudents,
   getBeginAtTotalArray,
   getStudentTotal,
 } from "../../services/pick-contents";
@@ -27,11 +25,6 @@ const StatsContent = (props: Props) => {
   const { contents } = props;
 
   const currentStudentCount = getStudentTotal(contents.currentStudents);
-  const weeklyStudents = generateWeeklyStudents(
-    contents.weeklyData,
-    contents.currentStudents,
-    contents.updatedAt
-  );
 
   return (
     <Container sx={{ pt: 0.5, pb: 2 }}>
@@ -47,14 +40,14 @@ const StatsContent = (props: Props) => {
         mb={2}
         justifyContent="center"
       >
-        <Grid item xs={4} sm={2} md={4}>
+        <Grid item xs={4} sm={8 / 3} md={4}>
           <Box height={{ xs: 260, sm: 300 }}>
             <StatsCard padding={1}>
-              <StudentTransitionContent weeklyStudents={weeklyStudents} />
+              <StudentTransitionContent weeklyData={contents.weeklyData} />
             </StatsCard>
           </Box>
         </Grid>
-        <Grid item xs={2} sm={3} md={4}>
+        <Grid item xs={2} sm={8 / 3} md={4}>
           <Box height={300}>
             <StatsCard padding={1}>
               <LevelStudentChart
@@ -65,7 +58,7 @@ const StatsContent = (props: Props) => {
             </StatsCard>
           </Box>
         </Grid>
-        <Grid item xs={2} sm={3} md={4}>
+        <Grid item xs={2} sm={8 / 3} md={4}>
           <Box height={300}>
             <StatsCard padding={1}>
               <SurvivalRateChart
@@ -96,14 +89,6 @@ const StatsContent = (props: Props) => {
               </StatsCard>
             </Grid>
           ))}
-        <Grid item xs={2} sm={2.6} md={3} minHeight={200}>
-          <StatsCard>
-            <EvaluationPointSummary
-              evaluationPoint={contents.evaluationPointSum}
-              students={currentStudentCount}
-            />
-          </StatsCard>
-        </Grid>
       </Grid>
       <Box mb={2}>
         <StatsCard>
