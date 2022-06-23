@@ -21,7 +21,6 @@ export const aggregateContents = (
 
   const beginAtList = extractBeginAtList(cursusUsers);
   const maxLevel = findMaxLevel(cursusUsers);
-  const evaluationPointSum = sumEvaluationPoints(cursusUsers, timeCreated);
   const allStudents = generateAllStudentsTable(
     cursusUsers,
     beginAtList,
@@ -44,7 +43,6 @@ export const aggregateContents = (
     updatedAt: timeCreated.toISOString(),
     beginAtList,
     maxLevel,
-    evaluationPointSum,
     allStudents,
     currentStudents,
     futureStudentIndexes,
