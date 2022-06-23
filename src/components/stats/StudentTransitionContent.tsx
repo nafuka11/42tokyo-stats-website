@@ -1,7 +1,4 @@
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
-import ArrowUpwardSharpIcon from "@mui/icons-material/ArrowUpwardSharp";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 import { PeriodData } from "../../types/Contents";
 import TabPanel from "../common/TabPanel";
