@@ -12,7 +12,7 @@ const LastUpdate = (props: Props) => {
 
   return (
     <Typography variant="caption">
-      {`Last Updated: ${format(updatedDate, "yyyy-MM-dd HH:mm:ss", {
+      {`Last Update: ${format(updatedDate, "yyyy-MM-dd HH:mm:ss", {
         timeZone: TIMEZONE_FRONT,
       })}`}
     </Typography>
