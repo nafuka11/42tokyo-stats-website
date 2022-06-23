@@ -1,4 +1,4 @@
-import { format } from "date-fns-tz";
+import { formatInTimeZone } from "date-fns-tz";
 import dotenv from "dotenv";
 import { initializeApp, cert } from "firebase-admin/app";
 import { getStorage } from "firebase-admin/storage";
@@ -35,6 +35,4 @@ export const downloadCursusUsersJson = async (date: Date) => {
 };
 
 const generateFileName = (date: Date) =>
-  `v1/cursus_users/${format(date, "yyyy-MM-dd", {
-    timeZone: TIMEZONE_GCS,
-  })}.json`;
+  `v1/cursus_users/${formatInTimeZone(date, TIMEZONE_GCS, "yyyy-MM-dd")}.json`;

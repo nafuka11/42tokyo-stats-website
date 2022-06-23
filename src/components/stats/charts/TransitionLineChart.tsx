@@ -43,7 +43,6 @@ const TransitionLineChart = (props: Props) => {
       labels: {
         format: `{value}${unit ?? ""}`,
       },
-      min: 0,
       opposite: true,
     },
     tooltip: {

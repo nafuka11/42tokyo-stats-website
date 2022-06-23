@@ -23,6 +23,7 @@ const userTheme = createTheme({
           "&.Mui-selected": {
             color: "#000",
           },
+          padding: "8px 12px",
         },
       },
     },
