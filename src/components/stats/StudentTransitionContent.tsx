@@ -1,23 +1,53 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
+import { INTERVAL_INDEX_DAILY } from "../../constants/interval-option";
 import { PeriodData } from "../../types/Contents";
 import TabPanel from "../common/TabPanel";
 import TransitionLineChart from "./charts/TransitionLineChart";
+import IntervalListMenu from "./IntervalListMenu";
 import StudentTransitionTab from "./StudentTransitionTab";
 
 type Props = {
+  dailyData: PeriodData[];
   weeklyData: PeriodData[];
 };
 
-const StudentTransitionContent = (props: Props) => {
-  const { weeklyData } = props;
-  const [tabIndex, setTabIndex] = useState(0);
+const generateIntervalText = (
+  currentTime: Date,
+  previousTime: Date
+): string => {
+  const days =
+    Math.round(
+      (currentTime.getTime() - previousTime.getTime()) / (1000 * 60 * 60 * 24)
+    ) + 1;
+  return `${days}日間`;
+};
 
-  const currentStudentSum = weeklyData[weeklyData.length - 1].currentStudentSum;
-  const previousStudentSum = weeklyData[0].currentStudentSum;
+const StudentTransitionContent = (props: Props) => {
+  const { dailyData, weeklyData } = props;
+  const [tabIndex, setTabIndex] = useState(0);
+  const [intervalIndex, setIntervalIndex] = useState(0);
+
+  const selectedData =
+    intervalIndex === INTERVAL_INDEX_DAILY ? dailyData : weeklyData;
+
+  const currentStudentSum =
+    selectedData[selectedData.length - 1].currentStudentSum;
+  const previousStudentSum = selectedData[0].currentStudentSum;
   const currentEvaluationPointAverage =
-    weeklyData[weeklyData.length - 1].evaluationPointAverage;
-  const previousEvaluationPointAverage = weeklyData[0].evaluationPointAverage;
+    selectedData[selectedData.length - 1].evaluationPointAverage;
+  const previousEvaluationPointAverage = selectedData[0].evaluationPointAverage;
+
+  const intervalOptions = [
+    generateIntervalText(
+      new Date(dailyData[dailyData.length - 1].updatedAt),
+      new Date(dailyData[0].updatedAt)
+    ),
+    generateIntervalText(
+      new Date(weeklyData[weeklyData.length - 1].updatedAt),
+      new Date(weeklyData[0].updatedAt)
+    ),
+  ];
 
   const handleChange = (_: SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
@@ -25,7 +55,7 @@ const StudentTransitionContent = (props: Props) => {
 
   return (
     <>
-      <Box sx={{ height: 100, textAlign: "center" }}>
+      <Box sx={{ height: 90, textAlign: "center" }}>
         <Tabs value={tabIndex} onChange={handleChange} centered>
           <Tab
             label={
@@ -49,25 +79,32 @@ const StudentTransitionContent = (props: Props) => {
         </Tabs>
       </Box>
       <TabPanel value={tabIndex} index={0}>
-        <Box sx={{ height: { xs: 140, sm: 180 } }}>
+        <Box sx={{ height: { xs: 125, sm: 165 } }}>
           <TransitionLineChart
             name="学生数"
-            data={weeklyData}
+            data={selectedData}
             pickData={(data) => data.currentStudentSum}
             unit="人"
           />
         </Box>
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
-        <Box sx={{ height: { xs: 140, sm: 180 } }}>
+        <Box sx={{ height: { xs: 125, sm: 165 } }}>
           <TransitionLineChart
             name="エバポ平均"
-            data={weeklyData}
+            data={selectedData}
             pickData={(data) => data.evaluationPointAverage}
             fixedDigit={2}
           />
         </Box>
       </TabPanel>
+      <Box sx={{ pl: 1 }}>
+        <IntervalListMenu
+          selectedIndex={intervalIndex}
+          setSelectedIndex={setIntervalIndex}
+          intervalOptions={intervalOptions}
+        />
+      </Box>
     </>
   );
 };
