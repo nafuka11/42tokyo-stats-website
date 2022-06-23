@@ -6,7 +6,7 @@ import {
   findMaxLevel,
   generateAllStudentsTable,
   generateCurrentStudentsTable,
-  generateWeeklyData,
+  generateIntervalData,
   sumEvaluationPoints,
 } from "./aggregate";
 import { isStudent } from "./filter";
@@ -14,6 +14,7 @@ import { isStudent } from "./filter";
 export const aggregateContents = (
   rawCursusUsers: CursusUser[],
   timeCreated: Date,
+  rawDailyData: { cursusUsers: CursusUser[]; timeCreated: Date }[],
   rawWeeklyData: { cursusUsers: CursusUser[]; timeCreated: Date }[]
 ): Contents => {
   const cursusUsers = rawCursusUsers.filter(isStudent);
@@ -36,14 +37,8 @@ export const aggregateContents = (
     beginAtList,
     timeCreated
   );
-  const weeklyData = generateWeeklyData(
-    rawWeeklyData,
-    beginAtList,
-    maxLevel,
-    evaluationPointSum,
-    currentStudents,
-    timeCreated
-  );
+  const dailyData = generateIntervalData(rawDailyData, beginAtList, maxLevel);
+  const weeklyData = generateIntervalData(rawWeeklyData, beginAtList, maxLevel);
 
   const contents = {
     updatedAt: timeCreated.toISOString(),
@@ -53,6 +48,7 @@ export const aggregateContents = (
     allStudents,
     currentStudents,
     futureStudentIndexes,
+    dailyData,
     weeklyData,
   };
   return contents;

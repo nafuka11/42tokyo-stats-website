@@ -7,6 +7,7 @@ export type Contents = {
   currentStudents: number[][];
   futureStudentIndexes: number[];
   weeklyData: PeriodData[];
+  dailyData: PeriodData[];
 };
 
 export type PeriodData = {

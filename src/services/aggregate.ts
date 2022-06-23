@@ -64,15 +64,12 @@ export const findFutureStudentIndexes = (
     .map((v) => v.index);
 };
 
-export const generateWeeklyData = (
-  rawWeeklyData: { cursusUsers: CursusUser[]; timeCreated: Date }[],
+export const generateIntervalData = (
+  rawIntervalData: { cursusUsers: CursusUser[]; timeCreated: Date }[],
   beginAtList: string[],
-  maxLevel: number,
-  evaluationPointSum: number,
-  currentStudents: number[][],
-  timeCreated: Date
+  maxLevel: number
 ): PeriodData[] => {
-  const weeklyData = rawWeeklyData.map((v) => {
+  const weeklyData = rawIntervalData.map((v) => {
     const cursusUsers = v.cursusUsers.filter(isStudent);
     const currentStudentsTable = generateCurrentStudentsTable(
       cursusUsers,
@@ -87,12 +84,6 @@ export const generateWeeklyData = (
       evaluationPointAverage: evaluationPointSum / currentStudentSum,
       updatedAt: v.timeCreated.toISOString(),
     };
-  });
-  const currentStudentSum = getStudentTotal(currentStudents);
-  weeklyData.push({
-    currentStudentSum,
-    evaluationPointAverage: evaluationPointSum / currentStudentSum,
-    updatedAt: timeCreated.toISOString(),
   });
   return weeklyData;
 };

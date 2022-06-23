@@ -1,15 +1,34 @@
+import { Duration } from "date-fns";
 import sub from "date-fns/sub";
 import { downloadCursusUsersJson } from "../repositories/cloud-storage";
 import { writeContents } from "../repositories/local-file";
 import { aggregateContents } from "../services/cursus-users";
+import { CursusUser } from "../types/CursusUser";
 
 const MAX_DOWNLOAD_RETRY_COUNT_CURRENT = 5;
-const MAX_DOWNLOAD_RETRY_COUNT_WEEKLY = 7;
+const MAX_DOWNLOAD_RETRY_COUNT_WEEKLY = 4;
+const MAX_DOWNLOAD_RETRY_COUNT_DAILY = 6;
 
 const downloadCursusUsers = async () => {
   const { cursusUsers, timeCreated } = await downloadLatestData();
-  const weeklyData = await downloadWeeklyData(timeCreated);
-  const contents = aggregateContents(cursusUsers, timeCreated, weeklyData);
+  const dailyData = await downloadIntervalData(
+    cursusUsers,
+    timeCreated,
+    { days: 1 },
+    MAX_DOWNLOAD_RETRY_COUNT_DAILY
+  );
+  const weeklyData = await downloadIntervalData(
+    cursusUsers,
+    timeCreated,
+    { days: 7 },
+    MAX_DOWNLOAD_RETRY_COUNT_WEEKLY
+  );
+  const contents = aggregateContents(
+    cursusUsers,
+    timeCreated,
+    dailyData,
+    weeklyData
+  );
   await writeContents(contents);
 };
 
@@ -27,20 +46,25 @@ const downloadLatestData = async () => {
   throw new Error("Failed to download cursusUsers from Google Cloud Storage");
 };
 
-const downloadWeeklyData = async (timeCreated: Date) => {
+const downloadIntervalData = async (
+  latestCursusUsers: CursusUser[],
+  timeCreated: Date,
+  duration: Duration,
+  downloadCount: number
+) => {
   let date = timeCreated;
-  const weeklyData = [];
+  const intervalData = [{ cursusUsers: latestCursusUsers, timeCreated }];
 
-  for (let i = 0; i < MAX_DOWNLOAD_RETRY_COUNT_WEEKLY; i++) {
-    date = sub(date, { days: 7 });
+  for (let i = 0; i < downloadCount; i++) {
+    date = sub(date, duration);
     try {
       const { cursusUsers, timeCreated } = await downloadCursusUsersJson(date);
-      weeklyData.push({ cursusUsers, timeCreated });
+      intervalData.push({ cursusUsers, timeCreated });
     } catch (e: any) {
       // do nothing
     }
   }
-  return weeklyData.reverse();
+  return intervalData.reverse();
 };
 
 (async () => await downloadCursusUsers())();
