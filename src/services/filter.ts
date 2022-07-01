@@ -1,3 +1,5 @@
+import { FortyTwoProfile } from "next-auth/providers/42-school";
+import { FORTYTWO_CURSUS_ID } from "../constants/forty-two";
 import { CursusUser } from "../types/CursusUser";
 
 export const isStudent = (cursusUser: CursusUser) => {
@@ -17,4 +19,17 @@ export const isCurrentStudent = (
     cursusUser.begin_at < createdStr &&
     (cursusUser.blackholed_at === null || cursusUser.blackholed_at > createdStr)
   );
+};
+
+export const is42cursusStudentOrStaff = (profile: FortyTwoProfile): boolean => {
+  if (profile["staff?"]) {
+    return true;
+  }
+  const cursusUser = profile.cursus_users.find(
+    (cursusUser) => cursusUser.cursus_id === FORTYTWO_CURSUS_ID
+  );
+  if (cursusUser) {
+    return true;
+  }
+  return false;
 };
