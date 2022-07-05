@@ -9,6 +9,7 @@ import { Contents } from "../../types/Contents";
 import {
   getBeginAtTotalArray,
   getStudentTotal,
+  getTotalFromRow,
 } from "../../services/pick-contents";
 import BeginAtLevelTable from "./tables/BeginAtLevelTable";
 import StudentTransitionContent from "./StudentTransitionContent";
@@ -81,13 +82,25 @@ const StatsContent = (props: Props) => {
         mb={2}
       >
         {contents.beginAtList
-          .filter((beginAt) => beginAt < contents.updatedAt)
-          .map((beginAt, i) => (
-            <Grid item xs={2} sm={2.6} md={3} key={beginAt} minHeight={200}>
+          .map((beginAt, index) => ({ beginAt, index }))
+          .filter((value) => value.beginAt < contents.updatedAt)
+          .filter(
+            (value) =>
+              getTotalFromRow(contents.currentStudents[value.index]) > 0
+          )
+          .map((value) => (
+            <Grid
+              item
+              xs={2}
+              sm={2.6}
+              md={3}
+              key={value.beginAt}
+              minHeight={200}
+            >
               <StatsCard padding={1}>
                 <LevelPieChart
-                  beginAt={beginAt}
-                  students={contents.currentStudents[i]}
+                  beginAt={value.beginAt}
+                  students={contents.currentStudents[value.index]}
                 />
               </StatsCard>
             </Grid>

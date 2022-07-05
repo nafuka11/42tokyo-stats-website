@@ -1,6 +1,5 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import {
-  Box,
   List,
   ListItem,
   ListItemText,
