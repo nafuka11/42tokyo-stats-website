@@ -10,13 +10,11 @@ import { getEnv } from "../utils/getEnv";
 dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 
 initializeApp({
-  credential: cert(
-    JSON.parse(
-      Buffer.from(getEnv("FIREBASE_SERVICE_ACCOUNT_BASE64"), "base64").toString(
-        "utf-8"
-      )
-    )
-  ),
+  credential: cert({
+    projectId: getEnv("FIREBASE_PROJECT_ID"),
+    clientEmail: getEnv("FIREBASE_CLIENT_EMAIL"),
+    privateKey: getEnv("FIREBASE_PRIVATE_KEY"),
+  }),
   storageBucket: getEnv("BUCKET_NAME"),
 });
 
