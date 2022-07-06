@@ -34,7 +34,7 @@
    | --------------------- | ------------------------------------------------------------ |
    | FT_CLIENT_ID          | 42 APIのuid                                                  |
    | FT_CLIENT_SECRET      | 42 APIのsecret                                               |
-   | NEXTAUTH_SECRET       | JWTの暗号化に使われるキー<br />`openssl rand -base64 32` で生成できます（参考：[Options \|NextAuth\.js](https://next-auth.js.org/configuration/options#secret)） |
+   | NEXTAUTH_SECRET       | JWTの暗号化に使われるキー<br />`openssl rand -base64 32` で生成できます（参考：[Options \| NextAuth\.js](https://next-auth.js.org/configuration/options#secret)） |
    | FIREBASE_PROJECT_ID   | サービスアカウントファイルの `project_id`                    |
    | FIREBASE_CLIENT_EMAIL | サービスアカウントファイルの `client_email`                  |
    | FIREBASE_PRIVATE_KEY  | サービスアカウントファイルの `private_key`<br />Vercelのwebエディタで設定する場合は、JSONの値そのままではなく、改行（`\n`）を実際の改行に置き換えてください<br />macOSかつjqコマンドが使える場合 `cat service-account-file.json \| jq -jr '.private_key' \| pbcopy` でwebエディタ用にクリップボードへprivate_keyをコピーできます |
