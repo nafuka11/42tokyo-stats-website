@@ -101,6 +101,8 @@
 
 ### アーキテクチャ図
 
+![architecture](docs/architecture.png)
+
 ### ディレクトリ構成
 
 ```
@@ -108,6 +110,7 @@
 ├── README.md
 ├── README.nextjs.md
 ├── contents
+├── docs
 ├── next-env.d.ts
 ├── next.config.js
 ├── package.json
@@ -131,6 +134,7 @@
 | ----------------- | ------------------------------------------------------------ |
 | .github/workflows | GitHub Actions用のworkflowファイル                           |
 | contents          | `yarn build:contents` で生成したファイル                     |
+| docs              | README.mdで使用する画像ファイル                              |
 | public            | 静的ファイル                                                 |
 | src/builder       | `yarn build:contents` のコード。Google Cloud Storageから情報を取得・集計し、`contents/` に保存します |
 | src/components    | コンポーネント。ページ共通のコンポーネントは `/common` に配置し、それ以外は機能ごとにディレクトリ名をつけます |
