@@ -3,6 +3,11 @@ import { FORTYTWO_CURSUS_ID } from "../constants/forty-two";
 import { CursusUser } from "../types/CursusUser";
 
 export const isStudent = (cursusUser: CursusUser) => {
+  const excludeUserIds = process.env.EXCLUDE_USER_IDS;
+  const userId = cursusUser.user.id;
+  if (excludeUserIds && excludeUserIds.split(",").includes(userId.toString())) {
+    return false;
+  }
   return (
     !cursusUser.user["staff?"] &&
     cursusUser.user.pool_year &&
