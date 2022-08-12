@@ -55,6 +55,7 @@
    | FIREBASE_CLIENT_EMAIL | サービスアカウントキーの `client_email`                      |
    | FIREBASE_PRIVATE_KEY  | サービスアカウントキーの `private_key`<br />Vercelのwebエディタで設定する場合は、JSONの値そのままではなく、改行（`\n`）を実際の改行に置き換えてください<br />macOSかつjqコマンドが使える場合 `cat service-account-file.json \| jq -jr '.private_key' \| pbcopy` でwebエディタ用にクリップボードへprivate_keyをコピーできます |
    | BUCKET_NAME           | Cloud Storageのバケット名                                    |
+   | EXCLUDE_USER_IDS      | 除外したい42の複数ユーザIDをカンマ区切りにした文字列。明らかに学生ではないデータが混入する場合に使います。（例：除外したいユーザIDが `21` と `42` の場合、 `21,42` と空白文字無しで指定します） |
 
 1. Cloud Storageからcursus_usersのファイルを取得し、 `contents/` 下にデータを保存します。保存したデータはログイン後の画面で表示されるデータとなります。
 

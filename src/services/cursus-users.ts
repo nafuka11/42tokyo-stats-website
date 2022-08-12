@@ -7,7 +7,6 @@ import {
   generateAllStudentsTable,
   generateCurrentStudentsTable,
   generateIntervalData,
-  sumEvaluationPoints,
 } from "./aggregate";
 import { isStudent } from "./filter";
 
