@@ -47,6 +47,7 @@ const StatsContent = (props: Props) => {
               <StudentTransitionContent
                 dailyData={contents.dailyData}
                 weeklyData={contents.weeklyData}
+                monthlyData={contents.monthlyData}
               />
             </StatsCard>
           </Box>
