@@ -1,6 +1,9 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
-import { INTERVAL_INDEX_DAILY } from "../../constants/interval-option";
+import {
+  INTERVAL_INDEX_WEEKLY,
+  INTERVAL_INDEX_MONTHLY,
+} from "../../constants/interval-option";
 import { PeriodData } from "../../types/Contents";
 import TabPanel from "../common/TabPanel";
 import TransitionLineChart from "./charts/TransitionLineChart";
@@ -10,6 +13,7 @@ import StudentTransitionTab from "./StudentTransitionTab";
 type Props = {
   dailyData: PeriodData[];
   weeklyData: PeriodData[];
+  monthlyData: PeriodData[];
 };
 
 const generateIntervalText = (
@@ -24,12 +28,52 @@ const generateIntervalText = (
 };
 
 const StudentTransitionContent = (props: Props) => {
-  const { dailyData, weeklyData } = props;
+  const { dailyData, weeklyData, monthlyData } = props;
   const [tabIndex, setTabIndex] = useState(0);
   const [intervalIndex, setIntervalIndex] = useState(0);
 
-  const selectedData =
-    intervalIndex === INTERVAL_INDEX_DAILY ? dailyData : weeklyData;
+  const getSelectedData = (intervalIndex: number) => {
+    switch (intervalIndex) {
+      case INTERVAL_INDEX_WEEKLY:
+        return weeklyData;
+      case INTERVAL_INDEX_MONTHLY:
+        return monthlyData;
+      default:
+        return dailyData;
+    }
+  };
+
+  const generateintervalOptions = () => {
+    const intervalOptions = [
+      generateIntervalText(
+        new Date(dailyData[dailyData.length - 1].updatedAt),
+        new Date(dailyData[0].updatedAt)
+      ),
+    ];
+    if (weeklyData.length > 1) {
+      intervalOptions.push(
+        generateIntervalText(
+          new Date(weeklyData[weeklyData.length - 1].updatedAt),
+          new Date(weeklyData[0].updatedAt)
+        )
+      );
+    }
+    if (monthlyData.length > 1) {
+      intervalOptions.push(
+        generateIntervalText(
+          new Date(monthlyData[monthlyData.length - 1].updatedAt),
+          new Date(monthlyData[0].updatedAt)
+        )
+      );
+    }
+    return intervalOptions;
+  };
+
+  const handleChange = (_: SyntheticEvent, newValue: number) => {
+    setTabIndex(newValue);
+  };
+
+  const selectedData = getSelectedData(intervalIndex);
 
   const currentStudentSum =
     selectedData[selectedData.length - 1].currentStudentSum;
@@ -38,20 +82,7 @@ const StudentTransitionContent = (props: Props) => {
     selectedData[selectedData.length - 1].evaluationPointAverage;
   const previousEvaluationPointAverage = selectedData[0].evaluationPointAverage;
 
-  const intervalOptions = [
-    generateIntervalText(
-      new Date(dailyData[dailyData.length - 1].updatedAt),
-      new Date(dailyData[0].updatedAt)
-    ),
-    generateIntervalText(
-      new Date(weeklyData[weeklyData.length - 1].updatedAt),
-      new Date(weeklyData[0].updatedAt)
-    ),
-  ];
-
-  const handleChange = (_: SyntheticEvent, newValue: number) => {
-    setTabIndex(newValue);
-  };
+  const intervalOptions = generateintervalOptions();
 
   return (
     <>

@@ -14,7 +14,8 @@ export const aggregateContents = (
   rawCursusUsers: CursusUser[],
   timeCreated: Date,
   rawDailyData: { cursusUsers: CursusUser[]; timeCreated: Date }[],
-  rawWeeklyData: { cursusUsers: CursusUser[]; timeCreated: Date }[]
+  rawWeeklyData: { cursusUsers: CursusUser[]; timeCreated: Date }[],
+  rawMonthlyData: { cursusUsers: CursusUser[]; timeCreated: Date }[]
 ): Contents => {
   const cursusUsers = rawCursusUsers.filter(isStudent);
 
@@ -37,6 +38,11 @@ export const aggregateContents = (
   );
   const dailyData = generateIntervalData(rawDailyData, beginAtList, maxLevel);
   const weeklyData = generateIntervalData(rawWeeklyData, beginAtList, maxLevel);
+  const monthlyData = generateIntervalData(
+    rawMonthlyData,
+    beginAtList,
+    maxLevel
+  );
 
   const contents = {
     updatedAt: timeCreated.toISOString(),
@@ -47,6 +53,7 @@ export const aggregateContents = (
     futureStudentIndexes,
     dailyData,
     weeklyData,
+    monthlyData,
   };
   return contents;
 };
