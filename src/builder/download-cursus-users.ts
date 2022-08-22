@@ -6,8 +6,9 @@ import { aggregateContents } from "../services/cursus-users";
 import { CursusUser } from "../types/CursusUser";
 
 const MAX_DOWNLOAD_RETRY_COUNT_CURRENT = 5;
-const MAX_DOWNLOAD_RETRY_COUNT_WEEKLY = 4;
 const MAX_DOWNLOAD_RETRY_COUNT_DAILY = 6;
+const MAX_DOWNLOAD_RETRY_COUNT_WEEKLY = 4;
+const MAX_DOWNLOAD_RETRY_COUNT_MONTHLY = 4;
 
 const downloadCursusUsers = async () => {
   const { cursusUsers, timeCreated } = await downloadLatestData();
@@ -23,11 +24,18 @@ const downloadCursusUsers = async () => {
     { days: 7 },
     MAX_DOWNLOAD_RETRY_COUNT_WEEKLY
   );
+  const monthlyData = await downloadIntervalData(
+    cursusUsers,
+    timeCreated,
+    { days: 30 },
+    MAX_DOWNLOAD_RETRY_COUNT_MONTHLY
+  );
   const contents = aggregateContents(
     cursusUsers,
     timeCreated,
     dailyData,
-    weeklyData
+    weeklyData,
+    monthlyData
   );
   await writeContents(contents);
 };

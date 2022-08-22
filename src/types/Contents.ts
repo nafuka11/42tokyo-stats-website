@@ -5,8 +5,9 @@ export type Contents = {
   allStudents: number[][];
   currentStudents: number[][];
   futureStudentIndexes: number[];
-  weeklyData: PeriodData[];
   dailyData: PeriodData[];
+  weeklyData: PeriodData[];
+  monthlyData: PeriodData[];
 };
 
 export type PeriodData = {
