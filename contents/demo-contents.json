@@ -90,5 +90,22 @@
       "evaluationPointAverage": 2.42,
       "updatedAt": "2042-04-01T15:00:00.000Z"
     }
+  ],
+  "monthlyData": [
+    {
+      "currentStudentSum": 15,
+      "evaluationPointAverage": 3,
+      "updatedAt": "2042-01-31T15:00:00.000Z"
+    },
+    {
+      "currentStudentSum": 18,
+      "evaluationPointAverage": 2.5,
+      "updatedAt": "2042-03-02T15:00:00.000Z"
+    },
+    {
+      "currentStudentSum": 21,
+      "evaluationPointAverage": 2.42,
+      "updatedAt": "2042-04-01T15:00:00.000Z"
+    }
   ]
 }
