@@ -35,6 +35,7 @@ const LevelPieChart = (props: Props) => {
           enabled: true,
           alignTo: "connectors",
           format: "Lv. {point.x}<br>({point.y}人)",
+          distance: 20,
         },
         size: "75%",
         borderWidth: 0.2,
