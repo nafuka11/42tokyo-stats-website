@@ -16,6 +16,9 @@ const LevelStudentChart = (props: Props) => {
     title: {
       text: "Lv別学生数",
     },
+    credits: {
+      enabled: false,
+    },
     xAxis: {
       categories: Array.from({ length: maxLevel + 1 }, (_, i) => i.toString()),
       title: {

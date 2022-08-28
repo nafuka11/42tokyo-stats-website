@@ -28,6 +28,9 @@ const SurvivalRateChart = (props: Props) => {
     title: {
       text: "生存率",
     },
+    credits: {
+      enabled: false,
+    },
     xAxis: {
       categories: studentsData.map((v) => beginAtList[v.index]),
     },

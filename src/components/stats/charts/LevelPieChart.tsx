@@ -26,12 +26,16 @@ const LevelPieChart = (props: Props) => {
     chart: {
       height: "100%",
     },
+    credits: {
+      enabled: false,
+    },
     plotOptions: {
       pie: {
         dataLabels: {
           enabled: true,
           alignTo: "connectors",
           format: "Lv. {point.x}<br>({point.y}人)",
+          distance: 20,
         },
         size: "75%",
         borderWidth: 0.2,

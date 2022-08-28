@@ -25,6 +25,9 @@ const TransitionLineChart = (props: Props) => {
     chart: {
       marginRight: 55,
     },
+    credits: {
+      enabled: false,
+    },
     xAxis: {
       title: {
         text: "",
