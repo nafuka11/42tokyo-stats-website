@@ -26,6 +26,9 @@ const LevelPieChart = (props: Props) => {
     chart: {
       height: "100%",
     },
+    credits: {
+      enabled: false,
+    },
     plotOptions: {
       pie: {
         dataLabels: {
