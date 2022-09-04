@@ -1,4 +1,5 @@
-import { format } from "date-fns-tz";
+import { formatInTimeZone } from "date-fns-tz";
+import { TIMEZONE_FRONT } from "../constants/time";
 import { PeriodData } from "../types/Contents";
 import { CursusUser } from "../types/CursusUser";
 import { isCurrentStudent, isStudent } from "./filter";
@@ -6,7 +7,7 @@ import { getStudentTotal } from "./pick-contents";
 
 export const extractBeginAtList = (cursusUsers: CursusUser[]): string[] => {
   const beginAtSet = cursusUsers.reduce((results, current) => {
-    const dateStr = getDateStrFromBeginAt(current.begin_at);
+    const dateStr = getDateString(current.begin_at);
     return results.add(dateStr);
   }, new Set<string>());
   return Array.from(beginAtSet).sort();
@@ -58,7 +59,7 @@ export const findFutureStudentIndexes = (
   return beginAtList
     .map((beginAt, index) => ({ beginAt, index }))
     .filter((v) => {
-      const dateStr = format(timeCreated, "yyyy-MM-dd");
+      const dateStr = getDateString(timeCreated);
       return v.beginAt > dateStr;
     })
     .map((v) => v.index);
@@ -97,7 +98,7 @@ const generateBeginAtLevelTable = (
     Array.from({ length: maxLevel + 2 }, () => 0)
   );
   cursusUsers.forEach((cursusUser) => {
-    const dateStr = getDateStrFromBeginAt(cursusUser.begin_at);
+    const dateStr = getDateString(cursusUser.begin_at);
     const beginAtIndex = beginAtList.findIndex((beginAt) => dateStr == beginAt);
     const levelIndex = Math.floor(cursusUser.level);
     table[beginAtIndex][levelIndex] += 1;
@@ -108,9 +109,6 @@ const generateBeginAtLevelTable = (
   return table;
 };
 
-const getDateStrFromBeginAt = (beginAt: string) => {
-  return beginAt.replace(
-    /^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
-    "$1"
-  );
+const getDateString = (Date: string | Date) => {
+  return formatInTimeZone(Date, TIMEZONE_FRONT, "yyyy-MM-dd");
 };
