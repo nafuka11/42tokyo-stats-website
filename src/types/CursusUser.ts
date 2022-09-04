@@ -2,14 +2,14 @@ export type CursusUser = {
   grade: string | null;
   level: number;
   skills: Skill[];
-  blackholed_at: DateString | null;
+  blackholed_at: string | null;
   id: number;
-  begin_at: DateString;
-  end_at: DateString | null;
+  begin_at: string;
+  end_at: string | null;
   cursus_id: number;
   has_coalition: boolean;
-  created_at: DateString;
-  updated_at: DateString;
+  created_at: string;
+  updated_at: string;
   user: User;
   cursus: Cursus;
   launcher: null;
@@ -42,6 +42,3 @@ type User = {
   alumni: boolean;
   "is_launched?": boolean;
 };
-
-type DateString =
-  `${number}-${number}-${number}T${number}:${number}:${number}.${number}Z`;
