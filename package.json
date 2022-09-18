@@ -8,7 +8,9 @@
     "build:contents": "ts-node --project tsconfig.builder.json src/builder/download-cursus-users.ts",
     "build:next": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -26,12 +28,23 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack5": "^6.5.12",
+    "@storybook/manager-webpack5": "^6.5.12",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
     "@types/node": "18.0.0",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
+    "babel-loader": "^8.2.5",
     "dotenv": "^16.0.2",
     "eslint": "8.23.0",
     "eslint-config-next": "12.3.0",
+    "eslint-plugin-storybook": "^0.6.4",
     "firebase-admin": "^11.0.1",
     "npm-run-all": "^4.1.5",
     "ts-node": "^10.9.1",
