@@ -10,6 +10,9 @@ export default {
       </div>
     ),
   ],
+  parameters: {
+    chromatic: { delay: 1500 },
+  },
 } as ComponentMeta<typeof LevelStudentChart>;
 
 export const ZeroToEightLevels: ComponentStoryObj<typeof LevelStudentChart> = {

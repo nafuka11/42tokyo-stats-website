@@ -11,6 +11,9 @@ export default {
       </div>
     ),
   ],
+  parameters: {
+    chromatic: { delay: 1500 },
+  },
 } as ComponentMeta<typeof TransitionLineChart>;
 
 const weeklyData = [
