@@ -1,6 +1,6 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import { LEVEL_COLORS } from "../../../constants/colors";
+import { getLevelColor } from "../../../utils/colors";
 import { excludeTotalFromRow } from "../../../services/pick-contents";
 
 type Props = {
@@ -49,7 +49,7 @@ const LevelPieChart = (props: Props) => {
         data: data.map((v) => ({
           x: v.level,
           y: v.count,
-          color: LEVEL_COLORS[v.level],
+          color: getLevelColor(v.level),
         })),
       },
     ],
