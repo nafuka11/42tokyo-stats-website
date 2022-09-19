@@ -1,16 +1,16 @@
 const SEQUENTIAL_LEVEL_COLORS = [
   "#f7fcf0",
-  "#e2f4dd",
-  "#d0edc9",
-  "#b3e1ba",
-  "#8dd3be",
-  "#65c0cc",
-  "#40a3cb",
-  "#2181b9",
-  "#0860a3",
-  "#163a7a",
+  "#e0f3db",
+  "#ccebc5",
+  "#a8ddb5",
+  "#7bccc4",
+  "#4eb3d3",
+  "#2b8cbe",
+  "#0868ac",
+  "#2c4a8d",
+  "#332160",
 ];
-const HIGH_LEVEL_COLOR = "#93003a";
+const HIGH_LEVEL_COLOR = "#fca8c5";
 
 export const getLevelColor = (level: number): string => {
   if (level < SEQUENTIAL_LEVEL_COLORS.length) {
