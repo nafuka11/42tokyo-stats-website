@@ -13,9 +13,7 @@ export default NextAuth({
       profile(profile: FortyTwoProfile) {
         return {
           id: profile.login,
-          image: profile.image_url
-            ? profile.image_url.replace("users/", "users/small_")
-            : null,
+          image: profile.image?.versions?.small,
         };
       },
     }),
