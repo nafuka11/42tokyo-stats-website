@@ -8,7 +8,7 @@ import { CursusUser } from "../types/CursusUser";
 const MAX_DOWNLOAD_RETRY_COUNT_CURRENT = 7;
 const MAX_DOWNLOAD_RETRY_COUNT_DAILY = 6;
 const MAX_DOWNLOAD_RETRY_COUNT_WEEKLY = 4;
-const MAX_DOWNLOAD_RETRY_COUNT_MONTHLY = 4;
+const MAX_DOWNLOAD_RETRY_COUNT_MONTHLY = 10;
 
 const downloadCursusUsers = async () => {
   const { cursusUsers, timeCreated } = await downloadLatestData();
