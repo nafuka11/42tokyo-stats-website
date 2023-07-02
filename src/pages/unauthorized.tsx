@@ -8,9 +8,9 @@ const UnauthorizedPage: NextPage = () => {
       <Typography variant="h5">Authorization failed</Typography>
       <Typography variant="h6">
         Move to{" "}
-        <Link href="/">
-          <MUILink>Top page</MUILink>
-        </Link>
+        <MUILink component={Link} href="/">
+          Top page
+        </MUILink>
       </Typography>
     </Stack>
   );

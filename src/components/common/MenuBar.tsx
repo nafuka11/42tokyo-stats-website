@@ -32,13 +32,8 @@ const MenuBar = () => {
         <Toolbar variant="dense">
           <Logo />
           <Box sx={{ flexGrow: 1 }} />
-          <Link href={REPOSITORY_URL} passHref>
-            <IconButton
-              size="large"
-              component="a"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+          <Link href={REPOSITORY_URL} target="_blank">
+            <IconButton size="large">
               <GitHubIcon />
             </IconButton>
           </Link>
