@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.8",
-    "date-fns": "^2.29.3",
+    "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "highcharts": "^10.3.3",
     "highcharts-react-official": "^3.1.0",
