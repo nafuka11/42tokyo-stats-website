@@ -101,6 +101,11 @@ const generateBeginAtLevelTable = (
     const dateStr = getDateString(cursusUser.begin_at);
     const beginAtIndex = beginAtList.findIndex((beginAt) => dateStr == beginAt);
     const levelIndex = Math.floor(cursusUser.level);
+    // FIXME: beginAtListとmaxLevelはこれまですべてのcursusUsersではなく最新のcursusUserのみを対象にしている
+    // 過去のcursusUsersのデータが最新で削除されている場合（例えば、以下の行でbeginAtIndexが見つからないケース）、正しく集計されない
+    if (beginAtIndex < 0) {
+      return;
+    }
     table[beginAtIndex][levelIndex] += 1;
     table[beginAtIndex][maxLevel + 1] += 1;
     table[beginAtList.length][levelIndex] += 1;
