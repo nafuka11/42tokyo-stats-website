@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import TransitionLineChart from "../../../components/stats/charts/TransitionLineChart";
 import { PeriodData } from "../../../types/Contents";
 
@@ -14,7 +14,7 @@ export default {
   parameters: {
     chromatic: { delay: 1500 },
   },
-} as ComponentMeta<typeof TransitionLineChart>;
+} as Meta<typeof TransitionLineChart>;
 
 const weeklyData = [
   {
@@ -44,7 +44,7 @@ const weeklyData = [
   },
 ];
 
-export const WeeklyCurrentStudentSum: ComponentStoryObj<
+export const WeeklyCurrentStudentSum: StoryObj<
   typeof TransitionLineChart
 > = {
   args: {
@@ -55,7 +55,7 @@ export const WeeklyCurrentStudentSum: ComponentStoryObj<
   },
 };
 
-export const WeeklyEvaluationPointAverage: ComponentStoryObj<
+export const WeeklyEvaluationPointAverage: StoryObj<
   typeof TransitionLineChart
 > = {
   args: {

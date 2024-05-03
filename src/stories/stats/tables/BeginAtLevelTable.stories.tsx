@@ -1,11 +1,11 @@
-import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import BeginAtLevelTable from "../../../components/stats/tables/BeginAtLevelTable";
 
 export default {
   component: BeginAtLevelTable,
-} as ComponentMeta<typeof BeginAtLevelTable>;
+} as Meta<typeof BeginAtLevelTable>;
 
-export const Default: ComponentStoryObj<typeof BeginAtLevelTable> = {
+export const Default: StoryObj<typeof BeginAtLevelTable> = {
   args: {
     beginAtList: [
       "2042-01-01",

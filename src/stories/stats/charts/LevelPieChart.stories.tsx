@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import LevelPieChart from "../../../components/stats/charts/LevelPieChart";
 
 export default {
@@ -13,23 +13,23 @@ export default {
   parameters: {
     chromatic: { delay: 1500 },
   },
-} as ComponentMeta<typeof LevelPieChart>;
+} as Meta<typeof LevelPieChart>;
 
-export const ZeroToEightLevels: ComponentStoryObj<typeof LevelPieChart> = {
+export const ZeroToEightLevels: StoryObj<typeof LevelPieChart> = {
   args: {
     students: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     beginAt: "2042-01-01",
   },
 };
 
-export const ZeroToTenLevels: ComponentStoryObj<typeof LevelPieChart> = {
+export const ZeroToTenLevels: StoryObj<typeof LevelPieChart> = {
   args: {
     students: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     beginAt: "2042-01-01",
   },
 };
 
-export const OneLevel: ComponentStoryObj<typeof LevelPieChart> = {
+export const OneLevel: StoryObj<typeof LevelPieChart> = {
   args: {
     students: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     beginAt: "2042-01-01",
