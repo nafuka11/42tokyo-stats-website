@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import LevelStudentChart from "../../../components/stats/charts/LevelStudentChart";
 
 export default {
@@ -13,9 +13,9 @@ export default {
   parameters: {
     chromatic: { delay: 1500 },
   },
-} as ComponentMeta<typeof LevelStudentChart>;
+} as Meta<typeof LevelStudentChart>;
 
-export const ZeroToEightLevels: ComponentStoryObj<typeof LevelStudentChart> = {
+export const ZeroToEightLevels: StoryObj<typeof LevelStudentChart> = {
   args: {
     currentStudents: [
       [0, 1, 2, 3, 4, 5, 6, 7, 8, 36],
@@ -27,7 +27,7 @@ export const ZeroToEightLevels: ComponentStoryObj<typeof LevelStudentChart> = {
   },
 };
 
-export const ZeroToTenLevels: ComponentStoryObj<typeof LevelStudentChart> = {
+export const ZeroToTenLevels: StoryObj<typeof LevelStudentChart> = {
   args: {
     currentStudents: [
       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 55],

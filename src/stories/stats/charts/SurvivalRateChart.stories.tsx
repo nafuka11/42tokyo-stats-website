@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import SurvivalRateChart from "../../../components/stats/charts/SurvivalRateChart";
 
 export default {
@@ -13,9 +13,9 @@ export default {
   parameters: {
     chromatic: { delay: 1500 },
   },
-} as ComponentMeta<typeof SurvivalRateChart>;
+} as Meta<typeof SurvivalRateChart>;
 
-export const Default: ComponentStoryObj<typeof SurvivalRateChart> = {
+export const Default: StoryObj<typeof SurvivalRateChart> = {
   args: {
     beginAtList: [
       "2042-01-01",

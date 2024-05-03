@@ -1,11 +1,11 @@
-import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import FutureStudentTable from "../../../components/stats/tables/FutureStudentTable";
 
 export default {
   component: FutureStudentTable,
-} as ComponentMeta<typeof FutureStudentTable>;
+} as Meta<typeof FutureStudentTable>;
 
-export const Default: ComponentStoryObj<typeof FutureStudentTable> = {
+export const Default: StoryObj<typeof FutureStudentTable> = {
   args: {
     beginAtList: [
       "2042-01-01",
