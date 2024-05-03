@@ -1,5 +1,4 @@
-import { Duration } from "date-fns";
-import sub from "date-fns/sub";
+import { Duration, sub } from "date-fns";
 import { downloadCursusUsersJson } from "../repositories/cloud-storage";
 import { writeContents } from "../repositories/local-file";
 import { aggregateContents } from "../services/cursus-users";
