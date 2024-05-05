@@ -25,11 +25,13 @@ export const downloadCursusUsersJson = async (date: Date) => {
 
   console.log(`try to download: ${fileName}`);
   const [metadata] = await file.getMetadata();
-  const timeCreated = new Date(metadata.timeCreated);
-  const [buffer] = await file.download();
-  const cursusUsers: CursusUser[] = JSON.parse(buffer.toString());
-
-  return { cursusUsers, timeCreated };
+  if (metadata.timeCreated) {
+    const timeCreated = new Date(metadata.timeCreated);
+    const [buffer] = await file.download();
+    const cursusUsers: CursusUser[] = JSON.parse(buffer.toString());
+    return { cursusUsers, timeCreated };
+  }
+  throw new Error(`invalid metadata: ${fileName}`);
 };
 
 const generateFileName = (date: Date) =>
