@@ -46,7 +46,7 @@
     "eslint-config-next": "^14.2.4",
     "eslint-plugin-storybook": "^0.8.0",
     "firebase-admin": "^12.1.1",
-    "npm-run-all2": "^6.2.0",
+    "npm-run-all2": "^6.2.2",
     "storybook": "^8.1.11",
     "ts-node": "^10.9.2",
     "typescript": "5.4.5"
