@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Login from "../components/login/Login";
-import Stats from "../components/stats/Stats";
 import { Fade } from "@mui/material";
 
 const IndexPage: NextPage = () => {
@@ -10,8 +9,7 @@ const IndexPage: NextPage = () => {
   return (
     <Fade in={status !== "loading"}>
       <div>
-        {status === "unauthenticated" && <Login />}
-        {status === "authenticated" && <Stats />}
+        <Login />
       </div>
     </Fade>
   );
