@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "run-s build:contents build:next",
+    "build": "next build",
     "build:contents": "ts-node --project tsconfig.builder.json src/builder/download-cursus-users.ts",
-    "build:next": "next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
