@@ -28,7 +28,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.5",
+    "@babel/core": "^7.28.4",
     "@storybook/addon-actions": "^8.3.5",
     "@storybook/addon-essentials": "^8.3.5",
     "@storybook/addon-interactions": "^8.3.5",
