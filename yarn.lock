@@ -4515,10 +4515,10 @@ chokidar@^3.5.3, chokidar@^3.6.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-chromatic@^11.29.0:
-  version "11.29.0"
-  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.29.0.tgz#da556dbd3b043e8c6a3134d1afa3bb4ad7317410"
-  integrity sha512-yisBlntp9hHVj19lIQdpTlcYIXuU9H/DbFuu6tyWHmj6hWT2EtukCCcxYXL78XdQt1vm2GfIrtgtKpj/Rzmo4A==
+chromatic@^13.1.4:
+  version "13.1.4"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-13.1.4.tgz#e06aeb31e15a481ccf8224f22f130a40ad83b828"
+  integrity sha512-6Voxdy2OvSyoA7mJjyiFiWii7d8ng0jBcW97TqL+ptlAWrJhIf10jrJ78KLPDUNOBIPxvx9Vcpe/bUwoLFIG5g==
 
 chrome-trace-event@^1.0.2:
   version "1.0.3"
