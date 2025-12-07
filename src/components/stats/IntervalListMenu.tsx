@@ -1,7 +1,7 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import {
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   Menu,
   MenuItem,
@@ -40,8 +40,7 @@ const IntervalListMenu = (props: Props) => {
     <Stack direction="row" alignItems="center" spacing={0.5}>
       <Typography variant="body2">表示期間：</Typography>
       <List dense>
-        <ListItem
-          button
+        <ListItemButton
           onClick={handleClickListItem}
           sx={{ borderBottom: 1, borderColor: "grey.500", pl: 1.5, pr: 0.5 }}
         >
@@ -55,7 +54,7 @@ const IntervalListMenu = (props: Props) => {
               </Stack>
             }
           />
-        </ListItem>
+        </ListItemButton>
       </List>
       <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
         {intervalOptions.map((option, index) => (

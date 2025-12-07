@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/nextjs";
 import TransitionLineChart from "../../../components/stats/charts/TransitionLineChart";
 import { PeriodData } from "../../../types/Contents";
 
