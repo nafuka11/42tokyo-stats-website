@@ -41,7 +41,7 @@
     "babel-loader": "^9.2.1",
     "chromatic": "^11.29.0",
     "dotenv": "^17.2.2",
-    "eslint": "8.57.1",
+    "eslint": "9.39.1",
     "eslint-config-next": "^14.2.33",
     "eslint-plugin-storybook": "^0.8.0",
     "firebase-admin": "^12.7.0",
