@@ -27,7 +27,7 @@
     "react-dom": "19.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.4",
+    "@babel/core": "^7.28.5",
     "@storybook/addon-links": "10.1.4",
     "@storybook/nextjs": "10.1.4",
     "@types/node": "20.19.13",
