@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/nextjs";
 import LevelStudentChart from "../../../components/stats/charts/LevelStudentChart";
 
 export default {
