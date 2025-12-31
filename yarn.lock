@@ -5508,10 +5508,10 @@ hermes-parser@^0.25.1:
   dependencies:
     hermes-estree "0.25.1"
 
-highcharts-react-official@^3.2.2:
-  version "3.2.2"
-  resolved "https://registry.npmjs.org/highcharts-react-official/-/highcharts-react-official-3.2.2.tgz"
-  integrity sha512-2kkWOB6RpdR26fmAJkrtJFG9xWFUDGKWyat88tW3fa/3l/Jc7D5ZfwTng2MZsdiKIH32AFy0Pr75udUe7uN6LA==
+highcharts-react-official@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-3.2.3.tgz#9496db4a5bb0cf916e8b44a88bb41e66483ae6f1"
+  integrity sha512-2gL8bVGe6Pf75tSe6IB5Ucd0nIOJX7ZrpttQBZVrjN2J9StdVZ12aOinXHIOFvlc6EzP8CbN13WS8NUq+9mptA==
 
 highcharts@^10.3.3:
   version "10.3.3"
