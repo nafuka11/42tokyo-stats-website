@@ -34,7 +34,7 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "babel-loader": "^9.2.1",
-    "chromatic": "^11.29.0",
+    "chromatic": "^13.3.4",
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
