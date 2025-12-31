@@ -19,7 +19,7 @@
     "date-fns": "^3.6.0",
     "date-fns-tz": "^3.2.0",
     "highcharts": "^10.3.3",
-    "highcharts-react-official": "^3.2.2",
+    "highcharts-react-official": "^3.2.3",
     "next": "16.0.10",
     "next-auth": "^4.24.11",
     "next-head-seo": "^0.1.3",
